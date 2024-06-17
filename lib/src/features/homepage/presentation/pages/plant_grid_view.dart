@@ -63,7 +63,8 @@ class PlantGridView extends StatelessWidget {
                     ),
                   ],
                 ),
-              )
+              ),
+              // SizedBox(height: 500,)
           ],
 
         ),

@@ -27,7 +27,7 @@ class _BottomNavBarV2State extends State<BottomNavBarV2> {
   List<Widget> pages = [
     PlantHomePage(),
     const NewsField(),
-   ScanPage(),
+    ScanPage(),
     const MainScreen(),
     const HomeBot()
   ];
@@ -111,14 +111,15 @@ class _BottomNavBarV2State extends State<BottomNavBarV2> {
                           width: size.width * 0.20,
                         ),
                         IconButton(
-                            icon: Icon(  shadows: const [
-                              BoxShadow(
-                                color: Color(0x3F000000),
-                                blurRadius: 4,
-                                offset: Offset(0, 4),
-                                spreadRadius: 1,
-                              )
-                            ],
+                            icon: Icon(
+                              shadows: const [
+                                BoxShadow(
+                                  color: Color(0x3F000000),
+                                  blurRadius: 4,
+                                  offset: Offset(0, 4),
+                                  spreadRadius: 1,
+                                )
+                              ],
                               Icons.thermostat,
                               size: 30,
                               color: currentIndex == 3
@@ -150,8 +151,6 @@ class _BottomNavBarV2State extends State<BottomNavBarV2> {
       ),
     );
   }
-
-  
 }
 
 class BNBCustomPainter extends CustomPainter {
@@ -181,8 +180,3 @@ class BNBCustomPainter extends CustomPainter {
     return false;
   }
 }
-
-
-
-
-

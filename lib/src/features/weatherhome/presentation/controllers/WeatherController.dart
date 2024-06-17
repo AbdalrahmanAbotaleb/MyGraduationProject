@@ -4,10 +4,7 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'package:mylast2gproject/src/core/constants/weatherConst.dart';
 import 'package:mylast2gproject/src/features/weatherhome/data/models/weatherModel.dart';
-import 'package:mylast2gproject/src/features/weatherhome/presentation/widgets/weather_cold.dart';
-import 'package:mylast2gproject/src/features/weatherhome/presentation/widgets/weather_hot.dart';
 
 class WeatherHomeController extends GetxController {
   final TextEditingController cityController = TextEditingController();

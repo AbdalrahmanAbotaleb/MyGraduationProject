@@ -1,12 +1,9 @@
-// ignore_for_file: avoid_print
-
 import 'dart:convert';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mylast2gproject/src/features/homepage/data/models/disease.dart'
-    as disease;
+import 'package:mylast2gproject/src/features/homepage/data/models/disease.dart' as disease;
 import 'package:mylast2gproject/src/features/homepage/presentation/widgets/widgets.dart';
 import '../../../../core/services/NetworkData.dart';
 import '../../data/models/category.dart';
@@ -42,8 +39,7 @@ class _PlantHomePageState extends State<PlantHomePage> {
   }
 
   Future<List<String>> getCategory() async {
-    final url =
-        Uri.parse('https://plantdiseasexapi.runasp.net/api/Plants/categories');
+    final url = Uri.parse('https://plantdiseasexapi.runasp.net/api/Plants/categories');
 
     final res = await http.get(url);
     final status = res.statusCode;
@@ -51,18 +47,12 @@ class _PlantHomePageState extends State<PlantHomePage> {
       return [];
     } else {
       print(jsonDecode(res.body));
-      return Categories.fromJson((res.body))
-          .data
-          .map(
-            (e) => e.name,
-          )
-          .toList();
+      return Categories.fromJson((res.body)).data.map((e) => e.name).toList();
     }
   }
 
   Future<List<disease.Datum>> getDiseasesList() async {
-    final url =
-        Uri.parse('https://plantdiseasexapi.runasp.net/api/cornDisease');
+    final url = Uri.parse('https://plantdiseasexapi.runasp.net/api/cornDisease');
 
     final res = await http.get(url);
     final status = res.statusCode;
@@ -83,6 +73,12 @@ class _PlantHomePageState extends State<PlantHomePage> {
       isSearchFieldEnabled = false;
     });
     searchFocusNode.unfocus();
+    // Add this line to re-enable the search field for new search queries
+    Future.delayed(Duration(milliseconds: 500), () {
+      setState(() {
+        isSearchFieldEnabled = true;
+      });
+    });
   }
 
   @override
@@ -179,23 +175,27 @@ class _PlantHomePageState extends State<PlantHomePage> {
                             ],
                           ),
                           height: height * 0.07,
-                          child: TabBar(
-                            onTap: (index) {
-                              plantController.updateCategory(categories[index]);
-                              setState(() {});
-                            },
-                            indicator: BoxDecoration(
-                              borderRadius: BorderRadius.circular(28),
-                              color: const Color(0xffF2F6EE),
+                          child: SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: TabBar(
+                              onTap: (index) {
+                                plantController.updateCategory(categories[index]);
+                                setState(() {});
+                              },
+                              isScrollable: true, // Make TabBar scrollable
+                              indicator: BoxDecoration(
+                                borderRadius: BorderRadius.circular(28),
+                                color: const Color(0xffF2F6EE),
+                              ),
+                              labelColor: const Color.fromARGB(255, 10, 10, 10),
+                              unselectedLabelColor: Colors.black,
+                              tabs: [
+                                for (int i = 0; i < categories.length; i++)
+                                  CustomTab(
+                                    text: categories[i],
+                                  ),
+                              ],
                             ),
-                            labelColor: const Color.fromARGB(255, 10, 10, 10),
-                            unselectedLabelColor: Colors.black,
-                            tabs: [
-                              for (int i = 0; i < categories.length; i++)
-                                CustomTab(
-                                  text: categories[i],
-                                ),
-                            ],
                           ),
                         ),
                         Expanded(
