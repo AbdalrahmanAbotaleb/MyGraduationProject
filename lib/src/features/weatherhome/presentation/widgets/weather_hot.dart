@@ -51,7 +51,7 @@ class WeatherWidget extends StatelessWidget {
                     style: isSwitched ? blacktheme : lighttheme,
                   ),
                   Text(
-                    'Sunny',
+                    '${weatherData?.weather[0].description ?? ''}', // Display weather description (e.g., Cloudy, Sunny)
                     style: isSwitched ? blacktheme : lighttheme,
                   ),
                 ],
@@ -78,7 +78,7 @@ class WeatherWidget extends StatelessWidget {
                         style: isSwitched ? blacktheme : lighttheme,
                       ),
                       Text(
-                        'feel like',
+                        'Feels Like',
                         style: isSwitched ? blacktheme : lighttheme,
                       )
                     ],
@@ -99,7 +99,7 @@ class WeatherWidget extends StatelessWidget {
                         style: isSwitched ? blacktheme : lighttheme,
                       ),
                       Text(
-                        'humidity',
+                        'Humidity',
                         style: isSwitched ? blacktheme : lighttheme,
                       )
                     ],

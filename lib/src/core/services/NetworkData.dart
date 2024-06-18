@@ -4,6 +4,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 abstract class NetworkInfo {
   Future<bool> get isConnected;
   Stream<ConnectivityResult> get onConnectivityChanged;
+  Stream<bool> get isConnectedStream;
 }
 
 class NetworkInfoImpl implements NetworkInfo {
@@ -39,4 +40,7 @@ class NetworkInfoImpl implements NetworkInfo {
   @override
   Stream<ConnectivityResult> get onConnectivityChanged =>
       connectivity.onConnectivityChanged;
+
+  @override
+  Stream<bool> get isConnectedStream => _connectionChangeController.stream;
 }

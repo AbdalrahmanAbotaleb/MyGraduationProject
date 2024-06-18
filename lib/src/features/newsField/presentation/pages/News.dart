@@ -6,6 +6,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import '../../../../core/services/NetworkData.dart';
 import '../controllers/news_controller.dart';
 import '../widgets/NewsBody.dart';
+import '../widgets/newsappbar.dart';
 
 class NewsField extends StatelessWidget {
   const NewsField({Key? key}) : super(key: key);
@@ -13,12 +14,25 @@ class NewsField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final newsController = Get.put(NewsController(networkInfo: NetworkInfoImpl(Connectivity())));
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'News Articles',
-          style: GoogleFonts.aclonica(),
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(height * 0.20),
+        child: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          flexibleSpace: SafeArea(
+            child: newsappBar(
+              'News Articles',
+              () {
+                
+              },
+              height,
+              width,
+            ),
+          ),
         ),
       ),
       body: Obx(() {
@@ -80,12 +94,14 @@ class NewsField extends StatelessWidget {
     if (newsController.isOffline.value) {
       return ListView(
         children: [
-          const Center(
+           Center(
             child: Padding(
               padding: EdgeInsets.all(16.0),
               child: Text(
                 'No internet connection. Swipe down to refresh.',
-                style: TextStyle(fontSize: 16),
+                style: GoogleFonts.nunitoSans(
+                  fontSize: 16,
+                ),
                 textAlign: TextAlign.center,
               ),
             ),
@@ -96,13 +112,15 @@ class NewsField extends StatelessWidget {
       );
     } else if (newsController.newsList.isEmpty) {
       return ListView(
-        children: const [
+        children:  [
           Center(
             child: Padding(
               padding: EdgeInsets.all(16.0),
               child: Text(
                 'No data available. Swipe down to refresh.',
-                style: TextStyle(fontSize: 16),
+                style: GoogleFonts.nunitoSans(
+                  fontSize: 16,
+                ),
                 textAlign: TextAlign.center,
               ),
             ),
@@ -121,7 +139,7 @@ class NewsField extends StatelessWidget {
   }
 
   void _showOfflineDialog() {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
       Get.dialog(
         AlertDialog(
           title: const Text('No Internet Connection'),

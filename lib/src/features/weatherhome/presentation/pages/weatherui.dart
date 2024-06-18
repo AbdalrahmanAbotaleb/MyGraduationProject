@@ -46,6 +46,15 @@ class WeatherHomePage extends StatelessWidget {
                   size: 30,
                 ),
               ),
+              IconButton(
+                icon: const Icon(
+                  Icons.my_location,
+                  size: 30,
+                ),
+                onPressed: () {
+                  controller.getWeatherByLocation();
+                },
+              ),
               Obx(() => Switch(
                 value: controller.isSwitched.value,
                 onChanged: (value) => controller.toggleSwitch(),

@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
+import 'package:mylast2gproject/src/features/ScanningHome/presentation/widgets/ScanAppBar.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 
@@ -23,6 +24,7 @@ class _DiagnosisDetailsPageState extends State<DiagnosisDetailsPage> {
   String? diseaseExplanation;
   bool isLoading = true;
   bool isOffline = false;
+  
 
   @override
   void initState() {
@@ -71,9 +73,27 @@ class _DiagnosisDetailsPageState extends State<DiagnosisDetailsPage> {
 
   @override
   Widget build(BuildContext context) {
+     double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
+
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Diseases Details'),
+       appBar: PreferredSize(
+        preferredSize: Size.fromHeight(height * 0.20),
+        child: AppBar(
+          automaticallyImplyLeading: false,
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          flexibleSpace: SafeArea(
+            child: Scanappabr(
+              'Diseases Details',
+              () {
+                Navigator.of(context).pop();
+              },
+              height,
+              width,
+            ),
+          ),
+        ),
       ),
       body: RefreshIndicator(
         onRefresh: _refreshData,

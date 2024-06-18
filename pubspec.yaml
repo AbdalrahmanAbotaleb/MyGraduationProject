@@ -49,11 +49,12 @@ dependencies:
   intl: ^0.19.0
   dio:
   lottie:
-  # bloc:
-  # flutter_bloc:
+  geolocator: ^12.0.0
   animate_do:
   connectivity_plus: ^2.3.0
   carousel_slider: ^4.2.1
+  weather_open_meteo_client:
+    git: https://github.com/ZiadSafwat/weather_open_meteo_client.git
   
  
  

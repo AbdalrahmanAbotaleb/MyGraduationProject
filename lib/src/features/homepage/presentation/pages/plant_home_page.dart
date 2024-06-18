@@ -1,15 +1,13 @@
-import 'dart:convert';
-
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mylast2gproject/src/features/homepage/data/models/disease.dart' as disease;
-import 'package:mylast2gproject/src/features/homepage/presentation/widgets/widgets.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import '../../../../core/services/NetworkData.dart';
 import '../../data/models/category.dart';
 import '../controllers/plant_controller.dart';
-import 'plant_grid_view.dart';
 import 'package:http/http.dart' as http;
+import 'plant_grid_view.dart';
+import 'package:mylast2gproject/src/features/homepage/data/models/disease.dart' as disease;
+import 'package:mylast2gproject/src/features/homepage/presentation/widgets/carousel.dart';
 
 class PlantHomePage extends StatefulWidget {
   @override
@@ -17,49 +15,40 @@ class PlantHomePage extends StatefulWidget {
 }
 
 class _PlantHomePageState extends State<PlantHomePage> {
-  final PlantController plantController =
-      Get.put(PlantController(NetworkInfoImpl(Connectivity())));
-
+  final PlantController plantController = Get.put(PlantController(NetworkInfoImpl(Connectivity())));
   final TextEditingController searchController = TextEditingController();
   final FocusNode searchFocusNode = FocusNode();
   bool isSearchFieldEnabled = true;
 
   @override
   void initState() {
+    super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       diseasesList = await getDiseasesList();
-
       categories = await getCategory();
       if (categories.isNotEmpty) {
         plantController.updateCategory(categories.first);
       }
       setState(() {});
     });
-    super.initState();
   }
 
   Future<List<String>> getCategory() async {
     final url = Uri.parse('https://plantdiseasexapi.runasp.net/api/Plants/categories');
-
     final res = await http.get(url);
-    final status = res.statusCode;
-    if (status != 200) {
+    if (res.statusCode != 200) {
       return [];
     } else {
-      print(jsonDecode(res.body));
       return Categories.fromJson((res.body)).data.map((e) => e.name).toList();
     }
   }
 
   Future<List<disease.Datum>> getDiseasesList() async {
     final url = Uri.parse('https://plantdiseasexapi.runasp.net/api/cornDisease');
-
     final res = await http.get(url);
-    final status = res.statusCode;
-    if (status != 200) {
+    if (res.statusCode != 200) {
       return [];
     } else {
-      print(jsonDecode(res.body));
       return disease.Disease.fromJson((res.body)).data;
     }
   }
@@ -73,7 +62,6 @@ class _PlantHomePageState extends State<PlantHomePage> {
       isSearchFieldEnabled = false;
     });
     searchFocusNode.unfocus();
-    // Add this line to re-enable the search field for new search queries
     Future.delayed(Duration(milliseconds: 500), () {
       setState(() {
         isSearchFieldEnabled = true;
@@ -206,16 +194,19 @@ class _PlantHomePageState extends State<PlantHomePage> {
                             child: TabBarView(
                               children: [
                                 for (int i = 0; i < categories.length; i++)
-                                  PlantGridView(
-                                    plants: plantController.categoryNamePlants
+                                  Obx(() {
+                                    final filteredPlants = plantController.categoryNamePlants
                                         .where((plant) => plant.name
                                             .toLowerCase()
                                             .contains(plantController
                                                 .searchQuery.value
                                                 .toLowerCase()))
-                                        .toList(),
-                                    height: height,
-                                  ),
+                                        .toList();
+                                    return PlantGridView(
+                                      plants: filteredPlants,
+                                      height: height,
+                                    );
+                                  }),
                               ],
                             ),
                           ),

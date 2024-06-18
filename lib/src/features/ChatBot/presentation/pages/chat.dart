@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:mylast2gproject/src/features/ScanningHome/presentation/pages/home.dart';
 
 import '../controllers/chat_controller.dart';
+import '../widgets/appbar.dart';
 
 class ChatPage extends StatelessWidget {
   final ChatController chatController = Get.put(ChatController());
@@ -25,7 +26,9 @@ class ChatPage extends StatelessWidget {
                 itemCount: chatController.chatHistory.length,
                 shrinkWrap: false,
                 controller: chatController.scrollController,
-                padding:   EdgeInsets.only(top: height*0.09, ),
+                padding: EdgeInsets.only(
+                  top: height * 0.12,
+                ),
                 physics: const BouncingScrollPhysics(),
                 itemBuilder: (context, index) {
                   final message = chatController.chatHistory[index];
@@ -134,7 +137,10 @@ class ChatPage extends StatelessWidget {
                   )
                 ],
               ),
-              child: Row(crossAxisAlignment:CrossAxisAlignment.center,mainAxisAlignment: MainAxisAlignment.spaceBetween,mainAxisSize: MainAxisSize.min,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   Expanded(
                     child: Padding(
@@ -172,9 +178,9 @@ class ChatPage extends StatelessWidget {
               ),
             ),
           ),
-          appBar(
-              'Chat',
-              () {Navigator.of(context).pop();},
+          appBar('ChatBot', () {
+            Navigator.of(context).pop();
+          },
               IconButton(
                 icon: const Icon(Icons.delete),
                 onPressed: chatController.clearChat,
@@ -185,39 +191,4 @@ class ChatPage extends StatelessWidget {
       ),
     );
   }
-}
-
-Widget appBar(String text, VoidCallback func, Widget widget, double height,
-    double width) {
-  return Container(
-    width: width,
-    height: height * 0.09,padding: EdgeInsets.symmetric(horizontal: width*0.04),
-    decoration: const ShapeDecoration(
-      color: Colors.white,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(30),
-          bottomRight: Radius.circular(30),
-        ),
-      ),
-      shadows: [
-        BoxShadow(
-          color: Color(0x3F000000),
-          blurRadius: 4,
-          offset: Offset(0, 4),
-          spreadRadius: 0,
-        )
-      ],
-    ),
-    child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,      mainAxisSize: MainAxisSize.min,
-      children: [
-        Transform.flip(flipX: true, child: customButton(func)),
-        Text(
-          text,
-          style: const TextStyle(fontWeight: FontWeight.bold),
-        ),
-        widget
-      ],
-    ),
-  );
 }
