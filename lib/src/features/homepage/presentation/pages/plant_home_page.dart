@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:mylast2gproject/src/features/settingpage/presentation/pages/setting_page.dart';
 import '../../../../core/services/NetworkData.dart';
 import '../../data/models/category.dart';
 import '../controllers/plant_controller.dart';
@@ -87,7 +88,9 @@ class _PlantHomePageState extends State<PlantHomePage> {
               AssetImage('assets/images/63-settings.gif'),
               size: 40,
             ),
-            onPressed: () {},
+            onPressed: () {
+              Get.to(() => SettingPageMain());
+            },
           ),
         ],
         elevation: 0,
