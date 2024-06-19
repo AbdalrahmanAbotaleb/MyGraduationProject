@@ -15,7 +15,7 @@ class PlantGridView extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom: 100),
       child: Container(
-        height: height * 0.8,
+        height: height * 0.9,
         child: GridView.count(
           crossAxisCount: 2,
           padding: const EdgeInsets.fromLTRB(8, 8, 8, 60),
@@ -45,7 +45,7 @@ class PlantGridView extends StatelessWidget {
                             bottom: 8,
                             left: 8,
                             child: Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                              padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 2.0),
                               decoration: BoxDecoration(
                                 color: Colors.white.withOpacity(0.7),
                                 borderRadius: BorderRadius.circular(8.0),

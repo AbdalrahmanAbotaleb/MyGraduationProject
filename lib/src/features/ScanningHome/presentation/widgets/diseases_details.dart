@@ -78,7 +78,7 @@ class _DiagnosisDetailsPageState extends State<DiagnosisDetailsPage> {
 
     return Scaffold(
        appBar: PreferredSize(
-        preferredSize: Size.fromHeight(height * 0.20),
+        preferredSize: Size.fromHeight(height * 0.1),
         child: AppBar(
           automaticallyImplyLeading: false,
           backgroundColor: Colors.transparent,

@@ -35,25 +35,17 @@ class MainScreen extends StatelessWidget {
                 child: Lottie.asset(
                   "assets/images/welcome.json",
                   animate: true,
-                  onLoaded: (p0) async {
-                    await Future.delayed(
-                            p0.duration + const Duration(seconds: 3))
-                        .then(
-                      (value) => Get.to(() => WeatherHomePage()),
-                    );
-                  },
                 ),
               ),
             ),
-            const SizedBox(
-              height: 15,
+            const SizedBox(height: 15),
+            ElevatedButton(
+              onPressed: () {
+                Get.to(() => WeatherHomePage());
+              },
+              child: const Text('Continue'),
             ),
-            const SizedBox(
-              height: 20,
-            ),
-            const SizedBox(
-              height: 100,
-            ),
+            const SizedBox(height: 20),
           ],
         ),
       ),

@@ -5,7 +5,7 @@ import '../../../ScanningHome/presentation/pages/home.dart';
 
 Widget Scanappabr(String text, VoidCallback func, double height, double width) {
   return Padding(
-    padding: const EdgeInsets.only(top: 25),
+    padding: const EdgeInsets.only(top: 15),
     child: Container(
       width: width,
       height: height * 0.09,

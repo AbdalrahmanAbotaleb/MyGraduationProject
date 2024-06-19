@@ -5,7 +5,7 @@ import '../../../ScanningHome/presentation/pages/home.dart';
 Widget appBar(String text, VoidCallback func, Widget widget, double height,
     double width, ) {
   return Padding(
-    padding: const EdgeInsets.only(top: 25),
+    padding: const EdgeInsets.only(top: 30),
     child: Container(
       width: width,
       height: height * 0.09,padding: EdgeInsets.symmetric(horizontal: width*0.04),

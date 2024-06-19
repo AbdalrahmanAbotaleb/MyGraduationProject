@@ -2,8 +2,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
 
 import '../../../ScanningHome/presentation/widgets/ScanAppBar.dart';
+import 'contact_us.dart';
 
 class SettingPageMain extends StatelessWidget {
   const SettingPageMain({Key? key}) : super(key: key);
@@ -16,7 +18,7 @@ class SettingPageMain extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(height * 0.20),
+          preferredSize: Size.fromHeight(height *0.1),
           child: AppBar(
             automaticallyImplyLeading: false,
             backgroundColor: Colors.transparent,
@@ -245,7 +247,7 @@ class _PageSittingState extends State<PageSitting> {
                               trailing: IconButton(
                                 icon: Icon(Icons.chevron_right),
                                 onPressed: () {
-                                  // Add onPressed functionality here
+                                  Get.to(() => ContactForm());
                                 },
                               ),
                             ),
