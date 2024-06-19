@@ -2,15 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mylast2gproject/src/core/theme/theme_controller.dart';
 import 'package:mylast2gproject/src/features/splashscreen/presentation/pages/SplashScreen.dart';
-import 'package:mylast2gproject/src/features/weatherhome/presentation/pages/weatherui.dart';
 
+import 'src/features/settingpage/presentation/pages/Notification/notification_services.dart';
 import 'src/features/weatherhome/presentation/pages/welcome.dart';
 
 
-void main() {
-  runApp(
-    const MyApp(),
-  );
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final NotificationService notificationService = NotificationService();
+  await notificationService.init();
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {

@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 import '../../../ScanningHome/presentation/widgets/ScanAppBar.dart';
+import 'Notification/notification_controller.dart';
 import 'contact_us.dart';
 
 class SettingPageMain extends StatelessWidget {
@@ -18,7 +19,7 @@ class SettingPageMain extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(height *0.1),
+          preferredSize: Size.fromHeight(height * 0.1),
           child: AppBar(
             automaticallyImplyLeading: false,
             backgroundColor: Colors.transparent,
@@ -55,6 +56,8 @@ class PageSitting extends StatefulWidget {
 class _PageSittingState extends State<PageSitting> {
   bool isDarkMode = false;
   bool isPushNotificationEnabled = false;
+  final NotificationController notificationController =
+      Get.put(NotificationController());
 
   @override
   Widget build(BuildContext context) {
@@ -215,25 +218,21 @@ class _PageSittingState extends State<PageSitting> {
                                 },
                               ),
                             ),
-                            ListTile(
-                              title: Text(
-                                'Push notifications',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 18,
-                                  fontFamily: 'Rubik',
-                                  fontWeight: FontWeight.w400,
-                                ),
-                              ),
-                              trailing: Switch(
-                                value: isPushNotificationEnabled,
-                                onChanged: (bool value) {
-                                  setState(() {
-                                    isPushNotificationEnabled = value;
-                                  });
-                                },
-                              ),
-                            ),
+                            // ListTile(
+                            //   title: Text(
+                            //     'Push notifications',
+                            //     style: TextStyle(
+                            //       color: Colors.black,
+                            //       fontSize: 18,
+                            //       fontFamily: 'Rubik',
+                            //       fontWeight: FontWeight.w400,
+                            //     ),
+                            //   ),
+                            //   trailing: Switch(
+                            //     value: notificationController.isSwitched.value,
+                            //     onChanged: notificationController.toggleSwitch,
+                            //   ),
+                            // ),
                             ListTile(
                               title: Text(
                                 'Contact Us',

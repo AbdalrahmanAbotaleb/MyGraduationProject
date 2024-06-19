@@ -4,10 +4,12 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:http/http.dart' as http;
 import 'package:mylast2gproject/src/features/settingpage/presentation/pages/setting_page.dart';
 import '../../../../core/services/NetworkData.dart';
+import '../../../settingpage/presentation/pages/Notification/notification_controller.dart';
 import '../../data/models/category.dart';
 import '../controllers/plant_controller.dart';
 import 'plant_grid_view.dart';
-import 'package:mylast2gproject/src/features/homepage/data/models/disease.dart' as disease;
+import 'package:mylast2gproject/src/features/homepage/data/models/disease.dart'
+    as disease;
 import 'package:mylast2gproject/src/features/homepage/presentation/widgets/carousel.dart';
 
 class PlantHomePage extends StatefulWidget {
@@ -21,8 +23,12 @@ class _PlantHomePageState extends State<PlantHomePage> {
   final TextEditingController searchController = TextEditingController();
   final FocusNode searchFocusNode = FocusNode();
   final PageController pageController = PageController();
-  bool isSearchFieldVisible = false; // State to manage the visibility of search field
-  bool _isDisposed = false; // Variable to track if the state is disposed
+  bool isSearchFieldVisible =
+      false; // State to manage the visibility of search field
+  bool _isDisposed = false;
+  final NotificationController notificationController =
+      Get.put(NotificationController());
+  // Variable to track if the state is disposed
 
   @override
   void initState() {
@@ -96,7 +102,8 @@ class _PlantHomePageState extends State<PlantHomePage> {
     Future.delayed(Duration(milliseconds: 500), () {
       if (!_isDisposed) {
         setState(() {
-          isSearchFieldVisible = true; // Show search field again after some delay
+          isSearchFieldVisible =
+              true; // Show search field again after some delay
         });
       }
     });
@@ -113,7 +120,10 @@ class _PlantHomePageState extends State<PlantHomePage> {
               AssetImage('assets/images/46-notification.gif'),
               size: 40,
             ),
-            onPressed: () {},
+            onPressed: () {
+              notificationController
+                  .toggleSwitch(!notificationController.isSwitched.value);
+            },
           ),
           IconButton(
             icon: const ImageIcon(
