@@ -1,112 +1,249 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mylast2gproject/src/core/constants/weatherConst.dart';
-import 'package:mylast2gproject/src/features/weatherhome/presentation/controllers/WeatherController.dart';
-import 'package:mylast2gproject/src/features/weatherhome/presentation/widgets/weather_cold.dart';
-import 'package:mylast2gproject/src/features/weatherhome/presentation/widgets/weather_hot.dart';
+import 'package:weather_icons/weather_icons.dart';
 
-class WeatherHomePage extends StatelessWidget {
-  final WeatherHomeController controller = Get.put(WeatherHomeController());
+import '../../data/models/weatherModel.dart';
+import '../controllers/WeatherController.dart';
+import '../widgets/weather_app_bar.dart';
+import 'search_page.dart';
+
+class WeatherHomePage extends StatefulWidget {
+  @override
+  _WeatherHomePageState createState() => _WeatherHomePageState();
+}
+
+class _WeatherHomePageState extends State<WeatherHomePage> {
+  final WeatherController weatherController = Get.put(WeatherController());
+
+  // Reactive flag to track if bottom sheet has been shown
+  RxBool bottomSheetShown = false.obs;
+
+  @override
+  void initState() {
+    super.initState();
+    // Initialize the bottomSheetShown state based on weather conditions
+    initializeBottomSheetState();
+  }
 
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
+
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: controller.isSwitched.value ? const Color(0xff090a0a) : const Color(0xffeaedf1),
-        elevation: 0.0,
-        title: Obx(() => Text(
-          'Weather App',
-          style: controller.isSwitched.value ? blacktheme : lighttheme,
-        )),
-        actions: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              IconButton(
-                color: controller.isSwitched.value ? Colors.white : Colors.black,
-                onPressed: () {
-                  Get.defaultDialog(
-                    title: 'Search By City Name',
-                    content: TextField(
-                      onChanged: (value) {},
-                      controller: controller.cityController,
-                      decoration: InputDecoration(hintText: "City name : "),
-                    ),
-                    textConfirm: 'Search',
-                    confirmTextColor: Colors.white,
-                    onConfirm: () {
-                      controller.saveState();
-                      controller.getData();
-                      Get.back();
-                    },
-                  );
-                },
-                icon: const Icon(
-                  Icons.add,
-                  size: 30,
-                ),
-              ),
-              IconButton(
-                icon: const Icon(
-                  Icons.my_location,
-                  size: 30,
-                ),
-                onPressed: () {
-                  controller.getWeatherByLocation();
-                },
-              ),
-              Obx(() => Switch(
-                value: controller.isSwitched.value,
-                onChanged: (value) => controller.toggleSwitch(),
-              )),
-            ],
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(height * 0.1),
+        child: AppBar(
+          automaticallyImplyLeading: false,
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          flexibleSpace: SafeArea(
+            child: WeatherAppBar(
+              title: 'Weather Home',
+              onSearchPressed: () {
+                // Navigate to SearchPage and reset bottom sheet state
+                navigateToSearchPage();
+              },
+              onCustomButtonPressed: () {
+                Navigator.of(context).pop();
+              },
+              height: height,
+              width: width,
+            ),
           ),
-        ],
+        ),
       ),
-      body: Obx(
-        () => Stack(
-          children: [
-            // Background image
-            Positioned.fill(
-              child: Image.asset(
-                'assets/images/weather.jpeg', // Replace with your image path
-                fit: BoxFit.cover,
+      body: Obx(() {
+        // Check if weather data is available
+        if (weatherController.weatherData.value == null) {
+          return const Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  'there is no weather 😔 start',
+                  style: TextStyle(
+                    fontSize: 26,
+                  ),
+                ),
+                Text(
+                  'searching now 🔍',
+                  style: TextStyle(
+                    fontSize: 26,
+                  ),
+                )
+              ],
+            ),
+          );
+        } else {
+          WeatherModel weatherData = weatherController.weatherData.value!;
+
+          // Check temperature conditions and show bottom sheet
+          if (weatherData.temp > 30 && !bottomSheetShown.value) {
+            bottomSheetShown.value = true;
+            showTemperatureWarningBottomSheet(
+                context,
+                'Temperature is above 30°C. Avoid pesticide spraying.',
+                () {
+              // Bottom sheet dismissed
+              bottomSheetShown.value = false;
+            });
+          } else if (weatherData.temp < 20 && !bottomSheetShown.value) {
+            bottomSheetShown.value = true;
+            showTemperatureWarningBottomSheet(
+                context,
+                'Temperature is below 20°C. Avoid pesticide spraying.',
+                () {
+              // Bottom sheet dismissed
+              bottomSheetShown.value = false;
+            });
+          }
+
+          // Build weather information UI
+          return Container(
+            constraints:
+                BoxConstraints(minHeight: MediaQuery.of(context).size.height),
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  weatherData.getThemeColor(),
+                  weatherData.getThemeColor()[300]!,
+                  weatherData.getThemeColor()[100]!,
+                ],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
               ),
             ),
-            // Your content
-            SingleChildScrollView(
+            child: SingleChildScrollView(
+              physics: AlwaysScrollableScrollPhysics(),
               child: Container(
-                width: double.infinity,
-                height: MediaQuery.of(context).size.height,
-                color: controller.isSwitched.value ? Colors.black.withOpacity(0.5) : Colors.white.withOpacity(0.5),
+                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    controller.isLoading.value
-                        ? const Center(
-                            child: CircularProgressIndicator(),
-                          )
-                        : controller.weatherData.value != null
-                            ? Column(
-                                children: [
-                                  controller.weatherData.value!.main.temp > 292
-                                      ? WeatherWidget(
-                                          weatherData: controller.weatherData.value,
-                                          isSwitched: controller.isSwitched.value,
-                                        )
-                                      : WeatherWidgetCold(
-                                          weatherData: controller.weatherData.value,
-                                          isSwitched: controller.isSwitched.value,
-                                        )
-                                ],
-                              )
-                            : const SizedBox(),
+                    const SizedBox(height: 20), // Added to create space
+                    Text(
+                      weatherController.cityName.value!,
+                      style: const TextStyle(
+                        fontSize: 32,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      'updated at : ${weatherData.date.hour.toString().padLeft(2, '0')}:${weatherData.date.minute.toString().padLeft(2, '0')}',
+                      style: const TextStyle(
+                        fontSize: 22,
+                      ),
+                    ),
+                    const SizedBox(height: 20), // Added to create space
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        BoxedIcon(weatherData.getIcon(), size: 50),
+                        Column(
+                          children: [
+                            Text('maxTemp: ${weatherData.maxTemp.toInt()}°C'),
+                            Text('minTemp: ${weatherData.minTemp.toInt()}°C'),
+                          ],
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 20), // Added to create space
+                    Text(
+                      "  Temperature ${weatherData.temp.toInt().toString()}",
+                      style: const TextStyle(
+                        fontSize: 32,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    buildWeatherDetail(
+                        'Wind Speed', '${weatherData.windSpeed} kph'),
+                    buildWeatherDetail('Humidity', '${weatherData.humidity}%'),
+                    buildWeatherDetail(
+                        'Precipitation', '${weatherData.precipitation} mm'),
+                    const SizedBox(height: 20), // Added to create space
                   ],
                 ),
               ),
             ),
-          ],
+          );
+        }
+      }),
+    );
+  }
+
+  void initializeBottomSheetState() {
+    // Initialize bottomSheetShown state based on weather conditions
+    WeatherModel? weatherData = weatherController.weatherData.value;
+    if (weatherData != null) {
+      if (weatherData.temp > 30) {
+        bottomSheetShown.value = true;
+      } else if (weatherData.temp < 20) {
+        bottomSheetShown.value = true;
+      }
+    }
+  }
+
+  void navigateToSearchPage() {
+    // Navigate to SearchPage
+    Get.to(() => SearchPage())?.then((_) {
+      // Reset bottomSheetShown state when returning from SearchPage
+      bottomSheetShown.value = false;
+    });
+  }
+
+  void showTemperatureWarningBottomSheet(
+      BuildContext context, String message, VoidCallback onDismiss) {
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      showModalBottomSheet(
+        context: context,
+        builder: (context) => Container(
+          padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Text(
+                'Warning!',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+              ),
+              SizedBox(height: 10),
+              Text(
+                message,
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 16),
+              ),
+              SizedBox(height: 20),
+              // ElevatedButton(
+              //   onPressed: () {
+              //     Navigator.of(context).pop(); // Dismiss bottom sheet
+              //     onDismiss(); // Callback to handle state change
+              //   },
+              //   child: Text('OK'),
+              // ),
+            ],
+          ),
         ),
-      ),
+      );
+    });
+  }
+
+  Widget buildWeatherDetail(String label, String value) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(
+          label,
+          style: const TextStyle(fontSize: 18),
+        ),
+        const SizedBox(width: 10),
+        Text(
+          value,
+          style: const TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ],
     );
   }
 }

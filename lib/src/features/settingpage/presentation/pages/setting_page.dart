@@ -182,23 +182,7 @@ class _PageSittingState extends State<PageSitting> {
                               ),
                             ),
                             Divider(color: Color(0xFFC9C9C9), thickness: 0.5),
-                            ListTile(
-                              title: Text(
-                                'Languages',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 18,
-                                  fontFamily: 'Rubik',
-                                  fontWeight: FontWeight.w400,
-                                ),
-                              ),
-                              trailing: IconButton(
-                                icon: Icon(Icons.chevron_right),
-                                onPressed: () {
-                                  // Add onPressed functionality here
-                                },
-                              ),
-                            ),
+
                             ListTile(
                               title: Text(
                                 'Dark mode',
@@ -282,23 +266,6 @@ class _PageSittingState extends State<PageSitting> {
                             ListTile(
                               title: Text(
                                 'About App',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 18,
-                                  fontFamily: 'Rubik',
-                                  fontWeight: FontWeight.w400,
-                                ),
-                              ),
-                              trailing: IconButton(
-                                icon: Icon(Icons.chevron_right),
-                                onPressed: () {
-                                  // Add onPressed functionality here
-                                },
-                              ),
-                            ),
-                            ListTile(
-                              title: Text(
-                                'Privacy policy',
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 18,

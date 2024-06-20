@@ -8,8 +8,7 @@ import '../../../settingpage/presentation/pages/Notification/notification_contro
 import '../../data/models/category.dart';
 import '../controllers/plant_controller.dart';
 import 'plant_grid_view.dart';
-import 'package:mylast2gproject/src/features/homepage/data/models/disease.dart'
-    as disease;
+import 'package:mylast2gproject/src/features/homepage/data/models/disease.dart' as disease;
 import 'package:mylast2gproject/src/features/homepage/presentation/widgets/carousel.dart';
 
 class PlantHomePage extends StatefulWidget {
@@ -18,62 +17,58 @@ class PlantHomePage extends StatefulWidget {
 }
 
 class _PlantHomePageState extends State<PlantHomePage> {
-  final PlantController plantController =
-      Get.put(PlantController(NetworkInfoImpl(Connectivity())));
+  final PlantController plantController = Get.put(PlantController(NetworkInfoImpl(Connectivity())));
   final TextEditingController searchController = TextEditingController();
   final FocusNode searchFocusNode = FocusNode();
   final PageController pageController = PageController();
-  bool isSearchFieldVisible =
-      false; // State to manage the visibility of search field
+  bool isSearchFieldVisible = false;
   bool _isDisposed = false;
-  final NotificationController notificationController =
-      Get.put(NotificationController());
-  // Variable to track if the state is disposed
+  final NotificationController notificationController = Get.put(NotificationController());
 
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance!.addPostFrameCallback((_) async {
-      if (!_isDisposed) {
-        await fetchData();
-        setState(() {});
-      }
-    });
+    fetchData();
   }
 
   @override
   void dispose() {
-    _isDisposed = true; // Mark state as disposed
+    _isDisposed = true;
+    pageController.dispose(); // Dispose the page controller
     super.dispose();
   }
 
   Future<void> fetchData() async {
-    diseasesList = await getDiseasesList();
-    categories = await getCategory();
-    if (categories.isNotEmpty) {
-      plantController.updateCategory(categories.first);
+    try {
+      if (!_isDisposed) {
+        await getDiseasesList();
+        await getCategory();
+        if (categories.isNotEmpty) {
+          plantController.updateCategory(categories.first);
+        }
+      }
+    } catch (e) {
+      print('Error fetching data: $e');
     }
   }
 
-  Future<List<String>> getCategory() async {
-    final url =
-        Uri.parse('https://plantdiseasexapi.runasp.net/api/Plants/categories');
+  Future<void> getCategory() async {
+    final url = Uri.parse('https://plantdiseasexapi.runasp.net/api/Plants/categories');
     final res = await http.get(url);
-    if (res.statusCode != 200) {
-      return [];
+    if (res.statusCode == 200) {
+      categories = Categories.fromJson(res.body).data.map((e) => e.name).toList();
     } else {
-      return Categories.fromJson(res.body).data.map((e) => e.name).toList();
+      categories = [];
     }
   }
 
-  Future<List<disease.Datum>> getDiseasesList() async {
-    final url =
-        Uri.parse('https://plantdiseasexapi.runasp.net/api/cornDisease');
+  Future<void> getDiseasesList() async {
+    final url = Uri.parse('https://plantdiseasexapi.runasp.net/api/cornDisease');
     final res = await http.get(url);
-    if (res.statusCode != 200) {
-      return [];
+    if (res.statusCode == 200) {
+      diseasesList = disease.Disease.fromJson(res.body).data;
     } else {
-      return disease.Disease.fromJson(res.body).data;
+      diseasesList = [];
     }
   }
 
@@ -85,7 +80,7 @@ class _PlantHomePageState extends State<PlantHomePage> {
       setState(() {
         isSearchFieldVisible = !isSearchFieldVisible;
         if (!isSearchFieldVisible) {
-          searchController.clear(); // Clear search field on hide
+          searchController.clear();
         }
       });
     }
@@ -95,15 +90,14 @@ class _PlantHomePageState extends State<PlantHomePage> {
     plantController.updateSearchQuery(query);
     if (!_isDisposed) {
       setState(() {
-        isSearchFieldVisible = false; // Hide search field after submitting
+        isSearchFieldVisible = false;
       });
     }
     searchFocusNode.unfocus();
     Future.delayed(Duration(milliseconds: 500), () {
       if (!_isDisposed) {
         setState(() {
-          isSearchFieldVisible =
-              true; // Show search field again after some delay
+          isSearchFieldVisible = true;
         });
       }
     });
@@ -121,8 +115,9 @@ class _PlantHomePageState extends State<PlantHomePage> {
               size: 40,
             ),
             onPressed: () {
-              notificationController
-                  .toggleSwitch(!notificationController.isSwitched.value);
+              if (!_isDisposed) {
+                notificationController.toggleSwitch(!notificationController.isSwitched.value);
+              }
             },
           ),
           IconButton(
@@ -234,10 +229,8 @@ class _PlantHomePageState extends State<PlantHomePage> {
                             child: TabBar(
                               onTap: (index) {
                                 if (!_isDisposed) {
-                                  plantController
-                                      .updateCategory(categories[index]);
+                                  plantController.updateCategory(categories[index]);
                                   pageController.jumpToPage(index);
-                                  setState(() {});
                                 }
                               },
                               isScrollable: true,
@@ -267,23 +260,14 @@ class _PlantHomePageState extends State<PlantHomePage> {
                               controller: pageController,
                               onPageChanged: (index) {
                                 if (!_isDisposed) {
-                                  plantController
-                                      .updateCategory(categories[index]);
-                                  setState(() {});
+                                  plantController.updateCategory(categories[index]);
                                 }
                               },
                               itemCount: categories.length,
                               itemBuilder: (context, index) {
                                 return Obx(() {
                                   if (!_isDisposed) {
-                                    final filteredPlants = plantController
-                                        .categoryNamePlants
-                                        .where((plant) => plant.name
-                                            .toLowerCase()
-                                            .contains(plantController
-                                                .searchQuery.value
-                                                .toLowerCase()))
-                                        .toList();
+                                    final filteredPlants = plantController.categoryNamePlants.where((plant) => plant.name.toLowerCase().contains(plantController.searchQuery.value.toLowerCase())).toList();
                                     return PlantGridView(
                                       plants: filteredPlants,
                                       height: height,

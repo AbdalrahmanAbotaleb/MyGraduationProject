@@ -32,20 +32,67 @@ class MainScreen extends StatelessWidget {
                 ),
                 width: size.width,
                 height: size.height / 2,
-                child: Lottie.asset(
-                  "assets/images/welcome.json",
-                  animate: true,
+                child:
+                    Lottie.asset("assets/images/weatther.json", animate: true),
+              ),
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            FadeInUp(
+              duration: duration,
+              delay: const Duration(milliseconds: 1600),
+              child: const Text(
+                "Welcome ",
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold),
+              ),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            FadeInUp(
+              duration: duration,
+              delay: const Duration(milliseconds: 1000),
+              child: const Text(
+                "To knows The Weather ",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    height: 1.2,
+                    color: Colors.grey,
+                    fontSize: 17,
+                    fontWeight: FontWeight.w300),
+              ),
+            ),
+            Expanded(child: Container()),
+            FadeInUp(
+              duration: duration,
+              delay: const Duration(milliseconds: 600),
+              child: SizedBox(
+                width: 250,
+                height: 50,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Color.fromARGB(255, 34, 240, 95),
+                  ),
+                  onPressed: () {
+                    Get.to(() => WeatherHomePage());
+                  },
+                  child: Text(
+                    'Get start',
+                    style: TextStyle(fontSize: 20),
+                  ),
                 ),
               ),
             ),
-            const SizedBox(height: 15),
-            ElevatedButton(
-              onPressed: () {
-                Get.to(() => WeatherHomePage());
-              },
-              child: const Text('Continue'),
+            const SizedBox(
+              height: 20,
             ),
-            const SizedBox(height: 20),
+            const SizedBox(
+              height: 100,
+            ),
           ],
         ),
       ),
