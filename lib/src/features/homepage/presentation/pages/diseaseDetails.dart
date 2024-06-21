@@ -143,9 +143,12 @@ class DatumDetailsScreen extends StatelessWidget {
   }
 
   Widget _buildParagraph(String content) {
-    return Text(
-      content,
-      style: const TextStyle(fontSize: 16),
+    return Padding(
+      padding: const EdgeInsets.only(left: 10),
+      child: Text(
+        content,
+        style: const TextStyle(fontSize: 16),
+      ),
     );
   }
 }

@@ -152,13 +152,16 @@ class PlantDetailItem extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 8.0),
-        Text(
-          content,
-          style: const TextStyle(
-            color: Color(0xB257793A),
-            fontSize: 16,
-            fontFamily: 'Lexend',
-            fontWeight: FontWeight.w600,
+        Padding(
+          padding: const EdgeInsets.only(left: 12),
+          child: Text(
+            content,
+            style: const TextStyle(
+              color: Color(0xB257793A),
+              fontSize: 16,
+              fontFamily: 'Lexend',
+              fontWeight: FontWeight.w600,
+            ),
           ),
         ),
         const SizedBox(height: 16.0),

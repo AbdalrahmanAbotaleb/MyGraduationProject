@@ -1,7 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../../core/theme/theme.dart'; // Assuming this is where hexToColor is defined
 import '../controllers/intro_controller.dart';
 import '../widgets/IntroWidget.dart';
 

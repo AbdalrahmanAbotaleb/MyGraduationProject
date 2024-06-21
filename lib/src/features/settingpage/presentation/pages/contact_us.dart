@@ -2,15 +2,49 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:connectivity_plus/connectivity_plus.dart';
 
+import '../../../../core/services/NetworkData.dart';
 import '../../../ScanningHome/presentation/widgets/ScanAppBar.dart';
 
-class ContactForm extends StatelessWidget {
+class ContactForm extends StatefulWidget {
+  @override
+  _ContactFormState createState() => _ContactFormState();
+}
+
+class _ContactFormState extends State<ContactForm> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _subjectController = TextEditingController();
   final TextEditingController _messageController = TextEditingController();
+
+  final NetworkInfo _networkInfo = NetworkInfoImpl(Connectivity());
+
+  @override
+  void initState() {
+    super.initState();
+    _networkInfo.isConnectedStream.listen((isConnected) {
+      if (!isConnected) {
+        Get.snackbar(
+          'No Internet Connection',
+          'Please check your internet connection.',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
+        );
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _emailController.dispose();
+    _subjectController.dispose();
+    _messageController.dispose();
+    super.dispose();
+  }
 
   void _sendMessage() async {
     final String name = _nameController.text;
@@ -47,7 +81,7 @@ class ContactForm extends StatelessWidget {
         'Success',
         'Message sent successfully!',
         snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Color.fromARGB(255, 101, 247, 162),
+        backgroundColor: Colors.red,
         colorText: Colors.white,
       );
     }
@@ -62,27 +96,27 @@ class ContactForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-     double height = MediaQuery.of(context).size.height;
+    double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: PreferredSize(
-          preferredSize: Size.fromHeight(height *0.1),
-          child: AppBar(
-            automaticallyImplyLeading: false,
-            backgroundColor: Colors.transparent,
-            elevation: 0,
-            flexibleSpace: SafeArea(
-              child: Scanappabr(
-                'Contact Us',
-                () {
-                  Navigator.of(context).pop();
-                },
-                height,
-                width,
-              ),
+        preferredSize: Size.fromHeight(height * 0.1),
+        child: AppBar(
+          automaticallyImplyLeading: false,
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          flexibleSpace: SafeArea(
+            child: Scanappabr(
+              'Contact Us',
+              () {
+                Navigator.of(context).pop();
+              },
+              height,
+              width,
             ),
           ),
         ),
+      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.all(16.0),

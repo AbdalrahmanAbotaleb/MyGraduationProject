@@ -1,47 +1,47 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-
+import 'package:mylast2gproject/src/features/settingpage/presentation/pages/about_app.dart';
+import 'package:mylast2gproject/src/features/settingpage/presentation/pages/about_us_page.dart';
 import '../../../ScanningHome/presentation/widgets/ScanAppBar.dart';
-import 'Notification/notification_controller.dart';
 import 'contact_us.dart';
+import 'switchtheme.dart/themecontroller.dart';
 
-class SettingPageMain extends StatelessWidget {
-  const SettingPageMain({Key? key}) : super(key: key);
+class SettingPageMain extends StatefulWidget {
+  @override
+  State<SettingPageMain> createState() => _SettingPageMainState();
+}
 
+class _SettingPageMainState extends State<SettingPageMain> {
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(height * 0.1),
-          child: AppBar(
-            automaticallyImplyLeading: false,
-            backgroundColor: Colors.transparent,
-            elevation: 0,
-            flexibleSpace: SafeArea(
-              child: Scanappabr(
-                'Setting Page',
-                () {
-                  Navigator.of(context).pop();
-                },
-                height,
-                width,
-              ),
+    return Scaffold(
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(height * 0.1),
+        child: AppBar(
+          automaticallyImplyLeading: false,
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          flexibleSpace: SafeArea(
+            child: Scanappabr(
+              'Setting Page',
+              () {
+                Navigator.of(context).pop();
+              },
+              height,
+              width,
             ),
           ),
         ),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              PageSitting(),
-            ],
-          ),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            PageSitting(),
+          ],
         ),
       ),
     );
@@ -50,15 +50,10 @@ class SettingPageMain extends StatelessWidget {
 
 class PageSitting extends StatefulWidget {
   @override
-  _PageSittingState createState() => _PageSittingState();
+  State<PageSitting> createState() => _PageSittingState();
 }
 
 class _PageSittingState extends State<PageSitting> {
-  bool isDarkMode = false;
-  bool isPushNotificationEnabled = false;
-  final NotificationController notificationController =
-      Get.put(NotificationController());
-
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
@@ -72,28 +67,6 @@ class _PageSittingState extends State<PageSitting> {
               decoration: BoxDecoration(color: Colors.white),
               child: Stack(
                 children: [
-                  Positioned(
-                    left: constraints.maxWidth * 0.38,
-                    top: 595,
-                    child: Container(
-                      width: 17,
-                      height: 17,
-                      clipBehavior: Clip.antiAlias,
-                      decoration: BoxDecoration(),
-                      child: FlutterLogo(),
-                    ),
-                  ),
-                  Positioned(
-                    left: constraints.maxWidth * 0.85,
-                    top: 595,
-                    child: Container(
-                      width: 17,
-                      height: 17,
-                      clipBehavior: Clip.antiAlias,
-                      decoration: BoxDecoration(),
-                      child: FlutterLogo(),
-                    ),
-                  ),
                   Positioned(
                     left: 0,
                     top: -18,
@@ -182,7 +155,6 @@ class _PageSittingState extends State<PageSitting> {
                               ),
                             ),
                             Divider(color: Color(0xFFC9C9C9), thickness: 0.5),
-
                             ListTile(
                               title: Text(
                                 'Dark mode',
@@ -193,30 +165,17 @@ class _PageSittingState extends State<PageSitting> {
                                   fontWeight: FontWeight.w400,
                                 ),
                               ),
-                              trailing: Switch(
-                                value: isDarkMode,
-                                onChanged: (bool value) {
-                                  setState(() {
-                                    isDarkMode = value;
-                                  });
-                                },
-                              ),
+                              trailing: Obx(() {
+                                return Switch(
+                                  value: Get.find<ThemeController>()
+                                      .isDarkMode
+                                      .value,
+                                  onChanged: (value) {
+                                    Get.find<ThemeController>().toggleTheme();
+                                  },
+                                );
+                              }),
                             ),
-                            // ListTile(
-                            //   title: Text(
-                            //     'Push notifications',
-                            //     style: TextStyle(
-                            //       color: Colors.black,
-                            //       fontSize: 18,
-                            //       fontFamily: 'Rubik',
-                            //       fontWeight: FontWeight.w400,
-                            //     ),
-                            //   ),
-                            //   trailing: Switch(
-                            //     value: notificationController.isSwitched.value,
-                            //     onChanged: notificationController.toggleSwitch,
-                            //   ),
-                            // ),
                             ListTile(
                               title: Text(
                                 'Contact Us',
@@ -259,7 +218,7 @@ class _PageSittingState extends State<PageSitting> {
                               trailing: IconButton(
                                 icon: Icon(Icons.chevron_right),
                                 onPressed: () {
-                                  // Add onPressed functionality here
+                                  Get.to(() => AboutUs());
                                 },
                               ),
                             ),
@@ -276,7 +235,7 @@ class _PageSittingState extends State<PageSitting> {
                               trailing: IconButton(
                                 icon: Icon(Icons.chevron_right),
                                 onPressed: () {
-                                  // Add onPressed functionality here
+                                  Get.to(() => AboutAppPage());
                                 },
                               ),
                             ),
