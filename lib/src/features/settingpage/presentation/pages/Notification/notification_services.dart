@@ -40,8 +40,16 @@ class NotificationService {
 
     await flutterLocalNotificationsPlugin.show(
       0,
-      'Test Notification',
-      'This is the notification body',
+      'PlantDiseasesX',
+      'Wellcome To PlantDiseasesX',
+      
+      platformChannelSpecifics,
+    );
+    await flutterLocalNotificationsPlugin.show(
+      1,
+      'PlantDiseaseX',
+      'We Help You To TakeCareOf Your Plant',
+      
       platformChannelSpecifics,
     );
   }

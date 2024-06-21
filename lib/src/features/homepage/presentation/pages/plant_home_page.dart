@@ -8,7 +8,8 @@ import '../../../settingpage/presentation/pages/Notification/notification_contro
 import '../../data/models/category.dart';
 import '../controllers/plant_controller.dart';
 import 'plant_grid_view.dart';
-import 'package:mylast2gproject/src/features/homepage/data/models/disease.dart' as disease;
+import 'package:mylast2gproject/src/features/homepage/data/models/disease.dart'
+    as disease;
 import 'package:mylast2gproject/src/features/homepage/presentation/widgets/carousel.dart';
 
 class PlantHomePage extends StatefulWidget {
@@ -17,13 +18,15 @@ class PlantHomePage extends StatefulWidget {
 }
 
 class _PlantHomePageState extends State<PlantHomePage> {
-  final PlantController plantController = Get.put(PlantController(NetworkInfoImpl(Connectivity())));
+  final PlantController plantController =
+      Get.put(PlantController(NetworkInfoImpl(Connectivity())));
   final TextEditingController searchController = TextEditingController();
   final FocusNode searchFocusNode = FocusNode();
   final PageController pageController = PageController();
   bool isSearchFieldVisible = false;
   bool _isDisposed = false;
-  final NotificationController notificationController = Get.put(NotificationController());
+  final NotificationController notificationController =
+      Get.put(NotificationController());
 
   @override
   void initState() {
@@ -40,12 +43,13 @@ class _PlantHomePageState extends State<PlantHomePage> {
 
   Future<void> fetchData() async {
     try {
-      if (!_isDisposed) {
-        await getDiseasesList();
-        await getCategory();
-        if (categories.isNotEmpty) {
-          plantController.updateCategory(categories.first);
-        }
+      await getDiseasesList();
+      await getCategory();
+      if (categories.isNotEmpty) {
+        plantController.updateCategory(
+            categories.first); // Update initially selected category
+        plantController
+            .fetchPlants(); // Fetch plants for initially selected category
       }
     } catch (e) {
       print('Error fetching data: $e');
@@ -53,22 +57,33 @@ class _PlantHomePageState extends State<PlantHomePage> {
   }
 
   Future<void> getCategory() async {
-    final url = Uri.parse('https://plantdiseasexapi.runasp.net/api/Plants/categories');
+    final url =
+        Uri.parse('https://plantdiseasexapi.runasp.net/api/Plants/categories');
     final res = await http.get(url);
     if (res.statusCode == 200) {
-      categories = Categories.fromJson(res.body).data.map((e) => e.name).toList();
+      setState(() {
+        categories =
+            Categories.fromJson(res.body).data.map((e) => e.name).toList();
+      });
     } else {
-      categories = [];
+      setState(() {
+        categories = [];
+      });
     }
   }
 
   Future<void> getDiseasesList() async {
-    final url = Uri.parse('https://plantdiseasexapi.runasp.net/api/cornDisease');
+    final url =
+        Uri.parse('https://plantdiseasexapi.runasp.net/api/cornDisease');
     final res = await http.get(url);
     if (res.statusCode == 200) {
-      diseasesList = disease.Disease.fromJson(res.body).data;
+      setState(() {
+        diseasesList = disease.Disease.fromJson(res.body).data;
+      });
     } else {
-      diseasesList = [];
+      setState(() {
+        diseasesList = [];
+      });
     }
   }
 
@@ -76,31 +91,20 @@ class _PlantHomePageState extends State<PlantHomePage> {
   List<disease.Datum> diseasesList = [];
 
   void toggleSearchFieldVisibility() {
-    if (!_isDisposed) {
-      setState(() {
-        isSearchFieldVisible = !isSearchFieldVisible;
-        if (!isSearchFieldVisible) {
-          searchController.clear();
-        }
-      });
-    }
+    setState(() {
+      isSearchFieldVisible = !isSearchFieldVisible;
+      if (!isSearchFieldVisible) {
+        searchController.clear();
+      }
+    });
   }
 
   void onSearchSubmitted(String query) {
     plantController.updateSearchQuery(query);
-    if (!_isDisposed) {
-      setState(() {
-        isSearchFieldVisible = false;
-      });
-    }
-    searchFocusNode.unfocus();
-    Future.delayed(Duration(milliseconds: 500), () {
-      if (!_isDisposed) {
-        setState(() {
-          isSearchFieldVisible = true;
-        });
-      }
+    setState(() {
+      isSearchFieldVisible = false;
     });
+    searchFocusNode.unfocus();
   }
 
   @override
@@ -115,9 +119,8 @@ class _PlantHomePageState extends State<PlantHomePage> {
               size: 40,
             ),
             onPressed: () {
-              if (!_isDisposed) {
-                notificationController.toggleSwitch(!notificationController.isSwitched.value);
-              }
+              notificationController
+                  .toggleSwitch(!notificationController.isSwitched.value);
             },
           ),
           IconButton(
@@ -198,13 +201,13 @@ class _PlantHomePageState extends State<PlantHomePage> {
             Expanded(
               child: Obx(() {
                 if (!plantController.isConnected.value) {
-                  return const Center(
+                  return Center(
                     child: Text('No Internet Connection'),
                   );
                 }
 
-                if (plantController.plants.isEmpty || categories.isEmpty) {
-                  return const Center(child: CircularProgressIndicator());
+                if (categories.isEmpty) {
+                  return Center(child: CircularProgressIndicator());
                 } else {
                   return DefaultTabController(
                     length: categories.length,
@@ -228,10 +231,9 @@ class _PlantHomePageState extends State<PlantHomePage> {
                             scrollDirection: Axis.horizontal,
                             child: TabBar(
                               onTap: (index) {
-                                if (!_isDisposed) {
-                                  plantController.updateCategory(categories[index]);
-                                  pageController.jumpToPage(index);
-                                }
+                                plantController
+                                    .updateCategory(categories[index]);
+                                pageController.jumpToPage(index);
                               },
                               isScrollable: true,
                               indicator: BoxDecoration(
@@ -250,35 +252,33 @@ class _PlantHomePageState extends State<PlantHomePage> {
                           ),
                         ),
                         Expanded(
-                          child: RefreshIndicator(
-                            onRefresh: () async {
-                              if (!_isDisposed) {
-                                plantController.fetchPlants();
-                              }
-                            },
-                            child: PageView.builder(
-                              controller: pageController,
-                              onPageChanged: (index) {
-                                if (!_isDisposed) {
-                                  plantController.updateCategory(categories[index]);
-                                }
-                              },
-                              itemCount: categories.length,
-                              itemBuilder: (context, index) {
-                                return Obx(() {
-                                  if (!_isDisposed) {
-                                    final filteredPlants = plantController.categoryNamePlants.where((plant) => plant.name.toLowerCase().contains(plantController.searchQuery.value.toLowerCase())).toList();
-                                    return PlantGridView(
-                                      plants: filteredPlants,
-                                      height: height,
-                                    );
-                                  } else {
-                                    return SizedBox.shrink();
-                                  }
-                                });
-                              },
-                            ),
-                          ),
+                          child: 
+                          RefreshIndicator(
+  onRefresh: () async {
+    plantController.fetchPlants(); // Refresh plants data
+  },
+  child: PageView.builder(
+    controller: pageController,
+    onPageChanged: (index) {
+      plantController.updateCategory(categories[index]);
+    },
+    itemCount: categories.length,
+    itemBuilder: (context, index) {
+      final filteredPlants = plantController
+          .categoryNamePlants
+          .where((plant) => plant.name
+              .toLowerCase()
+              .contains(plantController.searchQuery.value.toLowerCase()))
+          .toList();
+      return PlantGridView(
+        plants: filteredPlants,
+        height: height,
+      );
+    },
+  ),
+),
+
+
                         ),
                       ],
                     ),
@@ -292,6 +292,7 @@ class _PlantHomePageState extends State<PlantHomePage> {
     );
   }
 }
+
 
 class CustomTab extends StatelessWidget {
   final String text;

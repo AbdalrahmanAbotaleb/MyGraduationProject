@@ -84,7 +84,7 @@ class _WeatherHomePageState extends State<WeatherHomePage> {
             showTemperatureWarningBottomSheet(
                 context,
                 'Temperature is above 30°C. Avoid pesticide spraying.',
-                () {
+                weatherData, () {
               // Bottom sheet dismissed
               bottomSheetShown.value = false;
             });
@@ -93,7 +93,7 @@ class _WeatherHomePageState extends State<WeatherHomePage> {
             showTemperatureWarningBottomSheet(
                 context,
                 'Temperature is below 20°C. Avoid pesticide spraying.',
-                () {
+                weatherData, () {
               // Bottom sheet dismissed
               bottomSheetShown.value = false;
             });
@@ -193,35 +193,51 @@ class _WeatherHomePageState extends State<WeatherHomePage> {
   }
 
   void showTemperatureWarningBottomSheet(
-      BuildContext context, String message, VoidCallback onDismiss) {
+      BuildContext context, String message, WeatherModel weatherData, VoidCallback onDismiss) {
     WidgetsBinding.instance!.addPostFrameCallback((_) {
       showModalBottomSheet(
         context: context,
-        builder: (context) => Container(
-          padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Text(
-                'Warning!',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+        isScrollControlled: true,
+        builder: (context) => DraggableScrollableSheet(
+          expand: false,
+          builder: (BuildContext context, ScrollController scrollController) {
+            return SingleChildScrollView(
+              controller: scrollController,
+              child: Container(
+                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Text(
+                      'Warning!',
+                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                    ),
+                    SizedBox(height: 10),
+                    Text(
+                      message,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 16),
+                    ),
+                    SizedBox(height: 20),
+                    buildWeatherDetail('Temperature', '${weatherData.temp}°C'),
+                    buildWeatherDetail('Wind Speed', '${weatherData.windSpeed} kph'),
+                    buildWeatherDetail('Humidity', '${weatherData.humidity}%'),
+                    buildWeatherDetail('Precipitation', '${weatherData.precipitation} mm'),
+                    buildWeatherDetail('Max Temp', '${weatherData.maxTemp}°C'),
+                    buildWeatherDetail('Min Temp', '${weatherData.minTemp}°C'),
+                    SizedBox(height: 20),
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context).pop(); // Dismiss bottom sheet
+                        onDismiss(); // Callback to handle state change
+                      },
+                      child: Text('OK'),
+                    ),
+                  ],
+                ),
               ),
-              SizedBox(height: 10),
-              Text(
-                message,
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 16),
-              ),
-              SizedBox(height: 20),
-              // ElevatedButton(
-              //   onPressed: () {
-              //     Navigator.of(context).pop(); // Dismiss bottom sheet
-              //     onDismiss(); // Callback to handle state change
-              //   },
-              //   child: Text('OK'),
-              // ),
-            ],
-          ),
+            );
+          },
         ),
       );
     });

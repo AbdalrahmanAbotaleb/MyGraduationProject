@@ -69,7 +69,7 @@ class WeatherModel {
     } else if (weatherStateName.contains('thunder')) {
       return Colors.deepPurple;
     } else {
-      return Colors.blueGrey;
+      return Colors.yellow;
     }
   }
 }
