@@ -258,24 +258,25 @@ class _PlantHomePageState extends State<PlantHomePage> {
     plantController.fetchPlants(); // Refresh plants data
   },
   child: PageView.builder(
-    controller: pageController,
-    onPageChanged: (index) {
-      plantController.updateCategory(categories[index]);
-    },
-    itemCount: categories.length,
-    itemBuilder: (context, index) {
-      final filteredPlants = plantController
-          .categoryNamePlants
-          .where((plant) => plant.name
-              .toLowerCase()
-              .contains(plantController.searchQuery.value.toLowerCase()))
-          .toList();
-      return PlantGridView(
-        plants: filteredPlants,
-        height: height,
-      );
-    },
-  ),
+  controller: pageController,
+  physics: NeverScrollableScrollPhysics(), // Disable horizontal scrolling
+  onPageChanged: (index) {
+    plantController.updateCategory(categories[index]);
+  },
+  itemCount: categories.length,
+  itemBuilder: (context, index) {
+    final filteredPlants = plantController
+        .categoryNamePlants
+        .where((plant) =>
+            plant.name.toLowerCase().contains(plantController.searchQuery.value.toLowerCase()))
+        .toList();
+    return PlantGridView(
+      plants: filteredPlants,
+      height: height,
+    );
+  },
+),
+
 ),
 
 
