@@ -178,7 +178,7 @@ class ChatPage extends StatelessWidget {
               ),
             ),
           ),
-          appBar('ChatBot', () {
+          appBar('AI Assitant', () {
             Navigator.of(context).pop();
           },
               IconButton(

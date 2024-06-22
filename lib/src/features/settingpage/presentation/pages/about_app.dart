@@ -16,7 +16,7 @@ class AboutAppPage extends StatelessWidget {
         child: AppBar(
           backgroundColor: themeController.isDarkMode.value
               ? Color.fromARGB(255, 15, 238, 171)
-              : Colors.blue, // تعديل لون شريط التطبيق بناءً على السمة
+              : const Color.fromARGB(255, 241, 241, 241), // تعديل لون شريط التطبيق بناءً على السمة
 
           automaticallyImplyLeading: false,
           elevation: 0,
@@ -44,7 +44,7 @@ class AboutAppPage extends StatelessWidget {
                 fontWeight: FontWeight.bold,
                 color: themeController.isDarkMode.value
                     ? Colors.white
-                    : Color.fromARGB(255, 25, 248, 230),
+                    : Color(0xFF579133),
                 height: 1.5, // زيادة المسافة بين الأسطر
               ),
             ),
@@ -55,7 +55,7 @@ class AboutAppPage extends StatelessWidget {
                 fontSize: 18,
                 color: themeController.isDarkMode.value
                     ? Colors.white
-                    : Color.fromARGB(255, 25, 248, 230),
+                    : Color(0xFF579133),
                 height: 1.5, // زيادة المسافة بين الأسطر
               ),
             ),
@@ -66,7 +66,7 @@ class AboutAppPage extends StatelessWidget {
                 fontSize: 18,
                 color: themeController.isDarkMode.value
                     ? Colors.white
-                    : Color.fromARGB(255, 25, 248, 230),
+                    : Color(0xFF579133),
                 height: 1.5, // زيادة المسافة بين الأسطر
               ),
             ),
@@ -77,7 +77,7 @@ class AboutAppPage extends StatelessWidget {
                 fontSize: 18,
                 color: themeController.isDarkMode.value
                     ? Colors.white
-                    : Color.fromARGB(255, 25, 248, 230),
+                    :  Color(0xFF579133),
                 height: 1.5, // زيادة المسافة بين الأسطر
               ),
             ),
@@ -88,7 +88,7 @@ class AboutAppPage extends StatelessWidget {
                 fontSize: 18,
                 color: themeController.isDarkMode.value
                     ? Colors.white
-                    : Color.fromARGB(255, 25, 248, 230),
+                    : Color(0xFF579133),
                 height: 1.5, // زيادة المسافة بين الأسطر
               ),
             ),
@@ -98,7 +98,7 @@ class AboutAppPage extends StatelessWidget {
                 fontSize: 18,
                 color: themeController.isDarkMode.value
                     ? Colors.white
-                    : Color.fromARGB(255, 25, 248, 230),
+                    : Color(0xFF579133),
                 height: 1.5, // زيادة المسافة بين الأسطر
               ),
             ),
@@ -108,7 +108,7 @@ class AboutAppPage extends StatelessWidget {
                 fontSize: 18,
                 color: themeController.isDarkMode.value
                     ? Colors.white
-                    : Color.fromARGB(255, 25, 248, 230),
+                    :  Color(0xFF579133),
                 height: 1.5, // زيادة المسافة بين الأسطر
               ),
             ),
@@ -119,7 +119,7 @@ class AboutAppPage extends StatelessWidget {
                 fontSize: 18,
                 color: themeController.isDarkMode.value
                     ? Colors.white
-                    : Color.fromARGB(255, 25, 248, 230),
+                    :  Color(0xFF579133),
                 height: 1.5, // زيادة المسافة بين الأسطر
               ),
             ),

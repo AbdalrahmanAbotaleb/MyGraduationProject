@@ -19,24 +19,24 @@ class _SettingPageMainState extends State<SettingPageMain> {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(height * 0.1),
-        child: AppBar(
-          automaticallyImplyLeading: false,
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          flexibleSpace: SafeArea(
-            child: Scanappabr(
-              'Setting Page',
-              () {
-                Navigator.of(context).pop();
-              },
-              height,
-              width,
-            ),
-          ),
-        ),
-      ),
+      // appBar: PreferredSize(
+      //   preferredSize: Size.fromHeight(height * 0.1),
+      //   child: AppBar(
+      //     automaticallyImplyLeading: false,
+      //     backgroundColor: Colors.transparent,
+      //     elevation: 0,
+      //     flexibleSpace: SafeArea(
+      //       child: Scanappabr(
+      //         'Setting Page',
+      //         () {
+      //           Navigator.of(context).pop();
+      //         },
+      //         height,
+      //         width,
+      //       ),
+      //     ),
+      //   ),
+      // ),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -82,10 +82,10 @@ class _PageSittingState extends State<PageSitting> {
                     ),
                   ),
                   Positioned(
-                    left: 16,
+                    left: 100,
                     top: 56,
                     child: Container(
-                      width: 200,
+                      width: 1000,
                       height: 70,
                       child: Stack(
                         children: [
@@ -93,6 +93,7 @@ class _PageSittingState extends State<PageSitting> {
                             left: 0,
                             top: 0,
                             child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 Icon(
                                   Icons.settings,
@@ -109,6 +110,15 @@ class _PageSittingState extends State<PageSitting> {
                                     letterSpacing: 0.98,
                                   ),
                                 ),
+                                IconButton(
+                                    onPressed: () {
+                                       Navigator.of(context).pop();
+                                    },
+                                    icon: Icon(
+                                      Icons.chevron_right,
+                                      size: 45,
+                                      color: Colors.white,
+                                    ))
                               ],
                             ),
                           ),

@@ -216,7 +216,7 @@ class _PlantHomePageState extends State<PlantHomePage> {
                         Container(
                           margin: const EdgeInsets.all(8.0),
                           decoration: BoxDecoration(
-                            color: const Color(0xffE6FFD6),
+                            color: Color.fromARGB(255, 164, 248, 112),
                             borderRadius: BorderRadius.circular(16.0),
                             boxShadow: const [
                               BoxShadow(

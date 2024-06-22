@@ -226,13 +226,6 @@ class _WeatherHomePageState extends State<WeatherHomePage> {
                     buildWeatherDetail('Max Temp', '${weatherData.maxTemp}°C'),
                     buildWeatherDetail('Min Temp', '${weatherData.minTemp}°C'),
                     SizedBox(height: 20),
-                    ElevatedButton(
-                      onPressed: () {
-                        Navigator.of(context).pop(); // Dismiss bottom sheet
-                        onDismiss(); // Callback to handle state change
-                      },
-                      child: Text('OK'),
-                    ),
                   ],
                 ),
               ),

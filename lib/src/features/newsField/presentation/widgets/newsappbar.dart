@@ -31,12 +31,14 @@ Widget newsappBar(String text, VoidCallback func, double height, double width) {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            
             Text(
               text,
-              style: GoogleFonts.aclonica(
-                  textStyle:
-                      const TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+              style: GoogleFonts.roboto(
+                  textStyle: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 18,
+                color: Color.fromARGB(255, 37, 92, 2),
+              )),
             ),
           ],
         ),

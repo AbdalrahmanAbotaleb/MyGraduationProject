@@ -63,12 +63,18 @@ class NewsBody extends StatelessWidget {
                                 ),
                               ),
                               const SizedBox(height: 8),
-                              Text(
-                                '${article.date.day}/${article.date.month}/${article.date.year}',
-                                style: const TextStyle(
-                                  fontSize: 12,
-                                  color: Colors.grey,
-                                ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    '${article.date.day}/${article.date.month}/${article.date.year}',
+                                    style: const TextStyle(
+                                      fontSize: 12,
+                                      color: Colors.grey,
+                                    ),
+                                  ),
+                                  Icon(Icons.schedule)
+                                ],
                               ),
                             ],
                           ),
@@ -184,18 +190,30 @@ class NewsPage extends StatelessWidget {
                                 ),
                               ),
                               const SizedBox(height: 8),
-                              Text(
-                                article.description,
-                                style: const TextStyle(
-                                  fontSize: 18,
+                              Padding(
+                                padding: const EdgeInsets.only(left: 10),
+                                child: Text(
+                                  article.description,
+                                  style: const TextStyle(
+                                    fontSize: 18,
+                                  ),
                                 ),
                               ),
-                              const SizedBox(height: 8),
-                              Text(
-                                '${article.date.day}/${article.date.month}/${article.date.year}',
-                                style: const TextStyle(
-                                  fontSize: 15,
-                                  color: Colors.grey,
+                              const SizedBox(height: 20),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 10),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      '${article.date.day}/${article.date.month}/${article.date.year}',
+                                      style: const TextStyle(
+                                        fontSize: 15,
+                                        color: Colors.grey,
+                                      ),
+                                    ),
+                                    Icon(Icons.schedule)
+                                  ],
                                 ),
                               ),
                             ],

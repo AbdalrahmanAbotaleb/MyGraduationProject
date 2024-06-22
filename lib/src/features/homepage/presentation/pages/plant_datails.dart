@@ -79,7 +79,8 @@ class PlantDetails extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 20),
       child: Container(
         decoration: BoxDecoration(
-          color: Color.fromARGB(255, 223, 255, 252),
+          // color: Color.fromARGB(255, 223, 255, 252),
+          color: Colors.white,
           borderRadius: BorderRadius.circular(30),
           boxShadow: [
             BoxShadow(

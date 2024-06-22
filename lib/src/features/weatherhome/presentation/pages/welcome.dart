@@ -1,3 +1,5 @@
+// ignore_for_file: sort_child_properties_last
+
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -33,7 +35,7 @@ class MainScreen extends StatelessWidget {
                 width: size.width,
                 height: size.height / 2,
                 child:
-                    Lottie.asset("assets/images/weatther.json", animate: true),
+                    Lottie.asset("assets/images/weather2.json", animate: true),
               ),
             ),
             const SizedBox(
@@ -73,18 +75,53 @@ class MainScreen extends StatelessWidget {
               child: SizedBox(
                 width: 250,
                 height: 50,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Color.fromARGB(255, 34, 240, 95),
-                  ),
-                  onPressed: () {
+                child: GestureDetector(
+                  onTap: () {
                     Get.to(() => WeatherHomePage());
                   },
-                  child: Text(
-                    'Get start',
-                    style: TextStyle(fontSize: 20),
+                  child: Container(
+                    child: const Padding(
+                      padding:
+                          EdgeInsets.symmetric(vertical: 10, horizontal: 30),
+                      child: Text(
+                        "Show Temperature",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18.43,
+                          fontFamily: 'Lexend',
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                    decoration: ShapeDecoration(
+                      color: const Color(0xFF569033),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(7),
+                      ),
+                      shadows: const [
+                        BoxShadow(
+                          color: Color(0x3F000000),
+                          blurRadius: 32,
+                          offset: Offset(0, 20),
+                          spreadRadius: 0,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
+                //  ElevatedButton(
+                //   style: ElevatedButton.styleFrom(
+                //     backgroundColor: Color.fromARGB(255, 34, 240, 95),
+                //   ),
+                //   onPressed: () {
+                //     Get.to(() => WeatherHomePage());
+                //   },
+                //   child: Text(
+                //     'Show Temperature',
+                //     style: TextStyle(fontSize: 20),
+                //   ),
+                // ),
               ),
             ),
             const SizedBox(

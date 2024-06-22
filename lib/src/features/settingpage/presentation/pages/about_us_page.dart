@@ -39,7 +39,7 @@ class AboutUs extends StatelessWidget {
                 Center(
                   child: Container(
                     width: swidth,
-                    color: Color(0xff46f6f6),
+                    // color: Color(0xff46f6f6),
                     child: Column(
                       children: [
                         UserRow(

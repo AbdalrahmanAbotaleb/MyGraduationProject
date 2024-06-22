@@ -32,7 +32,6 @@ class DatumDetailsScreen extends StatelessWidget {
           ),
         ),
       ),
-      
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -74,7 +73,11 @@ class DatumDetailsScreen extends StatelessWidget {
             const SizedBox(height: 24),
             Text(
               datum.name,
-              style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+              style: const TextStyle(
+                fontSize: 28,
+                fontWeight: FontWeight.bold,
+                color: Color.fromARGB(255, 52, 110, 1),
+              ),
             ),
 
             const SizedBox(height: 24),
@@ -98,19 +101,19 @@ class DatumDetailsScreen extends StatelessWidget {
             const SizedBox(height: 16),
             _buildSectionTitle('EnvironmentalConditions'),
             _buildParagraph(datum.environmentalconditions),
-             const SizedBox(height: 16),
+            const SizedBox(height: 16),
             _buildSectionTitle('GeographicDistribution'),
             _buildParagraph(datum.geographicdistribution),
-             const SizedBox(height: 16),
+            const SizedBox(height: 16),
             _buildSectionTitle('RelatedDiseases'),
             _buildParagraph(datum.relateddiseases),
             const SizedBox(height: 16),
             _buildSectionTitle('HostPlants'),
             _buildParagraph(datum.hostplants),
-             const SizedBox(height: 16),
+            const SizedBox(height: 16),
             _buildSectionTitle('Management'),
             _buildParagraph(datum.management),
-             const SizedBox(height: 16),
+            const SizedBox(height: 16),
             _buildSectionTitle('PathogenType'),
             _buildParagraph(datum.pathogentype),
             const SizedBox(height: 16),
@@ -138,7 +141,11 @@ class DatumDetailsScreen extends StatelessWidget {
   Widget _buildSectionTitle(String title) {
     return Text(
       title,
-      style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+      style: const TextStyle(
+        fontSize: 20,
+        fontWeight: FontWeight.bold,
+        color: Color(0xFF3F8105),
+      ),
     );
   }
 
@@ -147,7 +154,10 @@ class DatumDetailsScreen extends StatelessWidget {
       padding: const EdgeInsets.only(left: 10),
       child: Text(
         content,
-        style: const TextStyle(fontSize: 16),
+        style: const TextStyle(
+          fontSize: 16,
+          color: Color(0xFF3F8105),
+        ),
       ),
     );
   }

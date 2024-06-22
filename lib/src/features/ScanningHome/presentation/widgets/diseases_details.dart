@@ -85,7 +85,7 @@ class _DiagnosisDetailsPageState extends State<DiagnosisDetailsPage> {
           elevation: 0,
           flexibleSpace: SafeArea(
             child: Scanappabr(
-              'Diseases Details',
+              'Diseases Diagnosis',
               () {
                 Navigator.of(context).pop();
               },
