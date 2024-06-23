@@ -52,12 +52,12 @@ class AboutUs extends StatelessWidget {
                         UserRow(
                           imageUrl:
                               "assets/images/abdo5.jpeg",
-                          userName: "Abdalrahman Abotaleb(Flutter Developer)",
+                          userName: "Abdalrahman Abotaleb(Mobile App Developer With Flutter )",
                         ),
                         UserRow(
                           imageUrl:
                               "assets/images/basel.jpeg",
-                          userName: "Basel Adnan (ML Developer)",
+                          userName: "Basel Adnan (Machine Learning)",
                         ),
                         UserRow(
                           imageUrl:
@@ -71,13 +71,18 @@ class AboutUs extends StatelessWidget {
                         ),
                         UserRow(
                           imageUrl:
-                              "assets/images/Eslam.jpeg",
-                          userName: "Ashish Dubey",
+                              "assets/images/osama.jpeg",
+                          userName: "Osama hisham adley ((Machine learning )",
                         ),
                         UserRow(
                           imageUrl:
-                              "assets/images/Eslam.jpeg",
-                          userName: "Kanhaiya Dubey",
+                              "assets/images/zezo.jpeg",
+                          userName: "Zezo (Front-End Developer)",
+                        ),
+                         UserRow(
+                          imageUrl:
+                              "assets/images/salem.jpg",
+                          userName: "Ahmed Salem (Front-End Developer)",
                         ),
                       ],
                     ),
