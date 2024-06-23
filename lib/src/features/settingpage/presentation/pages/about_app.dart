@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../ScanningHome/presentation/widgets/ScanAppBar.dart';
+import '../../../homepage/presentation/widgets/appbarhome.dart';
 import 'switchtheme.dart/themecontroller.dart'; // تعديل مسار الاستيراد حسب هيكل المشروع الفعلي
 
 class AboutAppPage extends StatelessWidget {
@@ -21,7 +22,7 @@ class AboutAppPage extends StatelessWidget {
           automaticallyImplyLeading: false,
           elevation: 0,
           flexibleSpace: SafeArea(
-            child: Scanappabr(
+            child: homeappbar(
               'About App',
               () {
                 Navigator.of(context).pop();

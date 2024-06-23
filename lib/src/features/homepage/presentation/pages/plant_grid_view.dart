@@ -12,9 +12,12 @@ class PlantGridView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Padding(
+
       padding: const EdgeInsets.only(bottom: 100),
       child: Container(
+
         height: height * 0.9,
         child: GridView.count(
           crossAxisCount: 2,
@@ -23,7 +26,9 @@ class PlantGridView extends StatelessWidget {
             for (Plant plant in plants)
               Card(
                 shape: RoundedRectangleBorder(
+
                   borderRadius: BorderRadius.circular(16.0),
+
                 ),
                 elevation: 4,
                 child: Column(
@@ -34,6 +39,7 @@ class PlantGridView extends StatelessWidget {
                         children: [
                           Container(
                             decoration: BoxDecoration(
+
                               image: DecorationImage(
                                 image: NetworkImage(plant.pictureUrl),
                                 fit: BoxFit.cover,
@@ -42,7 +48,8 @@ class PlantGridView extends StatelessWidget {
                             ),
                           ),
                           Positioned(
-                            bottom: 8,
+
+                            bottom: 10,
                             left: 8,
                             child: Container(
                               padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 2.0),
@@ -53,8 +60,9 @@ class PlantGridView extends StatelessWidget {
                               child: Text(
                                 plant.name,
                                 style: const TextStyle(
+                                  color:  Color(0xff256200),
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 16.0,
+                                  fontSize: 15.0,
                                 ),
                               ),
                             ),

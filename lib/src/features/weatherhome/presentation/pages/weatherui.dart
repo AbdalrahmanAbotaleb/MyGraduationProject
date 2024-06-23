@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:weather_icons/weather_icons.dart';
@@ -104,16 +106,19 @@ class _WeatherHomePageState extends State<WeatherHomePage> {
             constraints:
                 BoxConstraints(minHeight: MediaQuery.of(context).size.height),
             decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  weatherData.getThemeColor(),
-                  weatherData.getThemeColor()[300]!,
-                  weatherData.getThemeColor()[100]!,
-                ],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-              ),
-            ),
+                image: DecorationImage(
+                    image: AssetImage("assets/images/weather.jpg"))
+
+                // gradient: LinearGradient(
+                //   colors: [
+                //     weatherData.getThemeColor(),
+                //     weatherData.getThemeColor()[300]!,
+                //     weatherData.getThemeColor()[100]!,
+                //   ],
+                //   begin: Alignment.topCenter,
+                //   end: Alignment.bottomCenter,
+                // ),
+                ),
             child: SingleChildScrollView(
               physics: AlwaysScrollableScrollPhysics(),
               child: Container(
@@ -192,8 +197,8 @@ class _WeatherHomePageState extends State<WeatherHomePage> {
     });
   }
 
-  void showTemperatureWarningBottomSheet(
-      BuildContext context, String message, WeatherModel weatherData, VoidCallback onDismiss) {
+  void showTemperatureWarningBottomSheet(BuildContext context, String message,
+      WeatherModel weatherData, VoidCallback onDismiss) {
     WidgetsBinding.instance!.addPostFrameCallback((_) {
       showModalBottomSheet(
         context: context,
@@ -210,7 +215,8 @@ class _WeatherHomePageState extends State<WeatherHomePage> {
                   children: <Widget>[
                     Text(
                       'Warning!',
-                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                     ),
                     SizedBox(height: 10),
                     Text(
@@ -220,9 +226,11 @@ class _WeatherHomePageState extends State<WeatherHomePage> {
                     ),
                     SizedBox(height: 20),
                     buildWeatherDetail('Temperature', '${weatherData.temp}°C'),
-                    buildWeatherDetail('Wind Speed', '${weatherData.windSpeed} kph'),
+                    buildWeatherDetail(
+                        'Wind Speed', '${weatherData.windSpeed} kph'),
                     buildWeatherDetail('Humidity', '${weatherData.humidity}%'),
-                    buildWeatherDetail('Precipitation', '${weatherData.precipitation} mm'),
+                    buildWeatherDetail(
+                        'Precipitation', '${weatherData.precipitation} mm'),
                     buildWeatherDetail('Max Temp', '${weatherData.maxTemp}°C'),
                     buildWeatherDetail('Min Temp', '${weatherData.minTemp}°C'),
                     SizedBox(height: 20),

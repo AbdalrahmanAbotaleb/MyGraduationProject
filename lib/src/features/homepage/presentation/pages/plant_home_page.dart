@@ -165,35 +165,56 @@ class _PlantHomePageState extends State<PlantHomePage> {
               padding: const EdgeInsets.all(12),
               child: GestureDetector(
                 onTap: toggleSearchFieldVisibility,
-                child: AnimatedContainer(
-                  duration: Duration(milliseconds: 300),
-                  height: isSearchFieldVisible ? 60 : 0,
-                  padding: EdgeInsets.symmetric(horizontal: 16),
+                child: Container(
                   decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey),
                     borderRadius: BorderRadius.circular(28),
-                  ),
-                  child: Row(
-                    children: [
-                      Icon(Icons.search),
-                      SizedBox(width: 16),
-                      Expanded(
-                        child: TextField(
-                          controller: searchController,
-                          focusNode: searchFocusNode,
-                          enabled: isSearchFieldVisible,
-                          decoration: InputDecoration(
-                            border: InputBorder.none,
-                            hintText: 'Search by name',
-                          ),
-                          onSubmitted: onSearchSubmitted,
-                        ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 2,
+                        blurRadius: 7,
+                        offset: Offset(0, 3), // changes position of shadow
                       ),
                     ],
+                    color: Colors.white, // Background color of the container
+                  ),
+                  child: AnimatedContainer(
+                    duration: Duration(milliseconds: 300),
+                    height: isSearchFieldVisible ? 60 : 0,
+                    padding: EdgeInsets.symmetric(horizontal: 16),
+                    decoration: BoxDecoration(
+
+                      borderRadius: BorderRadius.circular(28),
+                    ),
+                    child: Row(
+                      children: [
+                        // Icon(
+                        //   Icons.search,
+                        //   color: Colors.green, // Icon color
+                        // ),
+                        // SizedBox(width: 16),
+                        Expanded(
+                          child: TextField(
+                            controller: searchController,
+                            focusNode: searchFocusNode,
+                            enabled: isSearchFieldVisible,
+                            style: TextStyle(color: Colors.green), // Text color of the input
+                            decoration: InputDecoration(
+                              border: InputBorder.none,
+                              hintText: 'Search by name 🔍 🔍',
+                              hintStyle: TextStyle(color: Colors.green.withOpacity(0.8)), // Hint text color
+                            ),
+                            onSubmitted: onSearchSubmitted,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
             ),
+
+
             Carousel(
               list: diseasesList,
               height: height,
@@ -216,13 +237,13 @@ class _PlantHomePageState extends State<PlantHomePage> {
                         Container(
                           margin: const EdgeInsets.all(8.0),
                           decoration: BoxDecoration(
-                            color: Color.fromARGB(255, 164, 248, 112),
+                            color: Color.fromARGB(255, 50, 128, 0),
                             borderRadius: BorderRadius.circular(16.0),
                             boxShadow: const [
                               BoxShadow(
                                 color: Colors.black26,
-                                blurRadius: 6.0,
-                                offset: Offset(0, 2),
+                                blurRadius: 50.0,
+                                offset: Offset(2, 2),
                               ),
                             ],
                           ),
@@ -240,8 +261,9 @@ class _PlantHomePageState extends State<PlantHomePage> {
                                 borderRadius: BorderRadius.circular(28),
                                 color: const Color(0xffF2F6EE),
                               ),
-                              labelColor: const Color.fromARGB(255, 10, 10, 10),
-                              unselectedLabelColor: Colors.black,
+                              labelColor: const Color.fromARGB(
+                                  255, 57, 73, 41),
+                              unselectedLabelColor: Colors.white,
                               tabs: [
                                 for (int i = 0; i < categories.length; i++)
                                   CustomTab(

@@ -34,10 +34,11 @@ Widget Scanappabr(String text, VoidCallback func, double height, double width) {
           Transform.flip(flipX: true, child: customButton(func)),
           Text(
             text,
-            style: GoogleFonts.aclonica(
+            style: GoogleFonts.roboto(
                 textStyle:
                     const TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
           ),
+          SizedBox()
         ],
       ),
     ),

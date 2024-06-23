@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../ScanningHome/presentation/widgets/ScanAppBar.dart';
+import '../../../homepage/presentation/widgets/appbarhome.dart';
 
 class AboutUs extends StatelessWidget {
   @override
@@ -17,7 +18,7 @@ class AboutUs extends StatelessWidget {
             backgroundColor: Colors.transparent,
             elevation: 0,
             flexibleSpace: SafeArea(
-              child: Scanappabr(
+              child: homeappbar(
                 'About Us',
                 () {
                   Navigator.of(context).pop();

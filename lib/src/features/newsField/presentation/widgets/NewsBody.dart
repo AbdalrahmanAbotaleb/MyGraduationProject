@@ -7,6 +7,7 @@ import 'package:mylast2gproject/src/features/newsField/presentation/widgets/news
 import 'package:shimmer/shimmer.dart';
 
 import '../../../ScanningHome/presentation/widgets/ScanAppBar.dart';
+import '../../../homepage/presentation/widgets/appbarhome.dart';
 import '../controllers/news_controller.dart';
 
 class NewsBody extends StatelessWidget {
@@ -153,7 +154,7 @@ class NewsPage extends StatelessWidget {
           backgroundColor: Colors.transparent,
           elevation: 0,
           flexibleSpace: SafeArea(
-            child: Scanappabr(
+            child: homeappbar(
               'News Details',
               () {
                 Navigator.of(context).pop();

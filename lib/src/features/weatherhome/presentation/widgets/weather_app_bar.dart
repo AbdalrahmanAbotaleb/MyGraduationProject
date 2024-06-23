@@ -44,7 +44,7 @@ Widget WeatherAppBar({
           
           Text(
             title,
-            style: GoogleFonts.aclonica(
+            style: GoogleFonts.roboto(
               textStyle: const TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 18,

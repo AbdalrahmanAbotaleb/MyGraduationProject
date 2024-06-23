@@ -41,7 +41,7 @@ class WeatherModel {
     bool isDayTime = date.hour >= 6 && date.hour < 18; // Assuming day time is between 6 AM and 6 PM
 
     if (weatherStateName == 'Sunny' || weatherStateName == 'Clear') {
-      return isDayTime ? WeatherIcons.day_sunny : WeatherIcons.night_clear;
+      return isDayTime ? WeatherIcons.day_sunny : WeatherIcons.day_sunny;
     } else if (weatherStateName.contains('cloud')) {
       return isDayTime ? WeatherIcons.day_cloudy : WeatherIcons.night_alt_cloudy;
     } else if (weatherStateName.contains('rain')) {
@@ -55,21 +55,21 @@ class WeatherModel {
     }
   }
 
-  MaterialColor getThemeColor() {
-    // if (weatherStateName == 'Sunny' || weatherStateName == 'Clear') {
-    //   return Colors.orange;
-    // } 
+  // MaterialColor getThemeColor() {
+  //   // if (weatherStateName == 'Sunny' || weatherStateName == 'Clear') {
+  //   //   return Colors.orange;
+  //   // } 
     
-     if (weatherStateName.contains('cloud')) {
-      return Colors.blueGrey;
-    } else if (weatherStateName.contains('rain')) {
-      return Colors.blue;
-    } else if (weatherStateName.contains('snow')) {
-      return Colors.lightBlue;
-    } else if (weatherStateName.contains('thunder')) {
-      return Colors.deepPurple;
-    } else {
-      return Colors.yellow;
-    }
-  }
+  //    if (weatherStateName.contains('cloud')) {
+  //     return Colors.blueGrey;
+  //   } else if (weatherStateName.contains('rain')) {
+  //     return Colors.blue;
+  //   } else if (weatherStateName.contains('snow')) {
+  //     return Colors.lightBlue;
+  //   } else if (weatherStateName.contains('thunder')) {
+  //     return Colors.deepPurple;
+  //   } else {
+  //     return Colors.yellow;
+  //   }
+  // }
 }

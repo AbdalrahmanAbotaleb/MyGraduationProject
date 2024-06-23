@@ -6,6 +6,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 
 import '../../../../core/services/NetworkData.dart';
 import '../../../ScanningHome/presentation/widgets/ScanAppBar.dart';
+import '../../../homepage/presentation/widgets/appbarhome.dart';
 
 class ContactForm extends StatefulWidget {
   @override
@@ -72,7 +73,7 @@ class _ContactFormState extends State<ContactForm> {
         'Success',
         'Message sent successfully!',
         snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Color.fromARGB(255, 101, 247, 162),
+        backgroundColor: Colors.green,
         colorText: Colors.white,
       );
       _clearTextFields();
@@ -81,7 +82,7 @@ class _ContactFormState extends State<ContactForm> {
         'Success',
         'Message sent successfully!',
         snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.red,
+        backgroundColor: Colors.green,
         colorText: Colors.white,
       );
     }
@@ -106,7 +107,7 @@ class _ContactFormState extends State<ContactForm> {
           backgroundColor: Colors.transparent,
           elevation: 0,
           flexibleSpace: SafeArea(
-            child: Scanappabr(
+            child: homeappbar(
               'Contact Us',
               () {
                 Navigator.of(context).pop();
