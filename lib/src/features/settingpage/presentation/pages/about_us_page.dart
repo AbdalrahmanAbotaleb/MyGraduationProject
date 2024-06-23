@@ -45,38 +45,38 @@ class AboutUs extends StatelessWidget {
                       children: [
                         UserRow(
                           imageUrl:
-                              "https://img.freepik.com/premium-photo/immersive-3d-cartoon-avatar-captivating-frontprofile-view-10yearold-white-male-with-black-h_983420-10038.jpg?w=740",
+                              "assets/images/ahmed.jpeg",
                           userName:
-                              "Ashwin Sharma  i am abdalrahman jkafhkadhnfksd djshfksdnhfj",
+                              "Ahmed Mohamed Gaber (Back-End)",
                         ),
                         UserRow(
                           imageUrl:
-                              "https://img.freepik.com/premium-photo/cartoon-character-with-glasses-red-shirt-that-says-i-m-boy_771335-49728.jpg?w=740",
-                          userName: "Anshul Joshi",
+                              "assets/images/abdo5.jpeg",
+                          userName: "Abdalrahman Abotaleb(Flutter Developer)",
                         ),
                         UserRow(
                           imageUrl:
-                              "https://img.freepik.com/free-photo/view-3d-woman_23-2150709984.jpg?t=st=1698601410~exp=1698605010~hmac=03ce97963f84882c8c29df38af9a86fdf5b327d5687f31f7471bad754614bbad&w=740",
-                          userName: "Anjali Joshi",
+                              "assets/images/basel.jpeg",
+                          userName: "Basel Adnan (ML Developer)",
                         ),
                         UserRow(
                           imageUrl:
-                              "https://img.freepik.com/premium-photo/cartoonish-3d-animation-boy-glasses-with-blue-hoodie-orange-shirt_899449-25777.jpg?w=740",
+                              "assets/images/yasmeen.jpeg",
+                          userName: "Yasmeen Mohamed(Back-End)",
+                        ),
+                        UserRow(
+                          imageUrl:
+                              "assets/images/Eslam.jpeg",
+                          userName: "Eslam Mohamed Badawy (Ux ui designer)",
+                        ),
+                        UserRow(
+                          imageUrl:
+                              "assets/images/Eslam.jpeg",
                           userName: "Ashish Dubey",
                         ),
                         UserRow(
                           imageUrl:
-                              "https://img.freepik.com/premium-photo/cartoon-character-with-blue-vest-vest-that-says-secret-it_771335-48824.jpg?w=740",
-                          userName: "Kanhaiya Dubey",
-                        ),
-                        UserRow(
-                          imageUrl:
-                              "https://img.freepik.com/premium-photo/cartoonish-3d-animation-boy-glasses-with-blue-hoodie-orange-shirt_899449-25777.jpg?w=740",
-                          userName: "Ashish Dubey",
-                        ),
-                        UserRow(
-                          imageUrl:
-                              "https://img.freepik.com/premium-photo/cartoon-character-with-blue-vest-vest-that-says-secret-it_771335-48824.jpg?w=740",
+                              "assets/images/Eslam.jpeg",
                           userName: "Kanhaiya Dubey",
                         ),
                       ],
@@ -105,7 +105,7 @@ class UserRow extends StatelessWidget {
       child: Row(
         children: [
           CircleAvatar(
-            backgroundImage: NetworkImage(imageUrl),
+            backgroundImage: AssetImage(imageUrl),
             radius: 50,
             backgroundColor: Colors.blue,
           ),
