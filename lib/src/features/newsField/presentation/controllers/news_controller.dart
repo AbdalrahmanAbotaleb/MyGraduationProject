@@ -1,9 +1,7 @@
 import 'dart:convert';
-
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-
 import 'package:mylast2gproject/src/core/services/NetworkData.dart';
 import 'package:mylast2gproject/src/features/newsField/data/models/NewsModel.dart';
 

@@ -26,9 +26,7 @@ class NewsField extends StatelessWidget {
           flexibleSpace: SafeArea(
             child: newsappBar(
               'News Articles',
-              () {
-                
-              },
+              () {},
               height,
               width,
             ),
@@ -94,14 +92,12 @@ class NewsField extends StatelessWidget {
     if (newsController.isOffline.value) {
       return ListView(
         children: [
-           Center(
+          Center(
             child: Padding(
               padding: EdgeInsets.all(16.0),
               child: Text(
                 'No internet connection. Swipe down to refresh.',
-                style: GoogleFonts.nunitoSans(
-                  fontSize: 16,
-                ),
+                style: _getTextStyle(newsController),
                 textAlign: TextAlign.center,
               ),
             ),
@@ -112,15 +108,13 @@ class NewsField extends StatelessWidget {
       );
     } else if (newsController.newsList.isEmpty) {
       return ListView(
-        children:  [
+        children: [
           Center(
             child: Padding(
               padding: EdgeInsets.all(16.0),
               child: Text(
                 'No data available. Swipe down to refresh.',
-                style: GoogleFonts.nunitoSans(
-                  fontSize: 16,
-                ),
+                style: _getTextStyle(newsController),
                 textAlign: TextAlign.center,
               ),
             ),
@@ -138,22 +132,14 @@ class NewsField extends StatelessWidget {
     }
   }
 
-  void _showOfflineDialog() {
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
-      Get.dialog(
-        AlertDialog(
-          title: const Text('No Internet Connection'),
-          content: const Text('Please check your internet connection and try again.'),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Get.back();
-              },
-              child: const Text('OK'),
-            ),
-          ],
-        ),
-      );
-    });
+  TextStyle _getTextStyle(NewsController newsController) {
+    // Check internet connection
+    if (newsController.isOffline.value) {
+      // Use a fallback font when offline
+      return TextStyle(fontSize: 16);
+    } else {
+      // Use Google Fonts when online
+      return GoogleFonts.nunitoSans(fontSize: 16);
+    }
   }
 }

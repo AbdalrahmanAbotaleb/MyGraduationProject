@@ -11,24 +11,24 @@ class AboutUs extends StatelessWidget {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
-      appBar:PreferredSize(
-          preferredSize: Size.fromHeight(height *0.1),
-          child: AppBar(
-            automaticallyImplyLeading: false,
-            backgroundColor: Colors.transparent,
-            elevation: 0,
-            flexibleSpace: SafeArea(
-              child: homeappbar(
-                'About Us',
-                () {
-                  Navigator.of(context).pop();
-                },
-                height,
-                width,
-              ),
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(height * 0.1),
+        child: AppBar(
+          automaticallyImplyLeading: false,
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          flexibleSpace: SafeArea(
+            child: homeappbar(
+              'About Us',
+              () {
+                Navigator.of(context).pop();
+              },
+              height,
+              width,
             ),
           ),
         ),
+      ),
       body: LayoutBuilder(
         builder: (context, constraints) {
           var sheight = constraints.maxHeight;
@@ -44,45 +44,37 @@ class AboutUs extends StatelessWidget {
                     child: Column(
                       children: [
                         UserRow(
-                          imageUrl:
-                              "assets/images/ahmed.jpeg",
+                          imageUrl: "assets/images/gaber.jpeg",
+                          userName: "Ahmed Mohamed Gaber (Back-End)",
+                        ),
+                        UserRow(
+                          imageUrl: "assets/images/abdo5.jpeg",
                           userName:
-                              "Ahmed Mohamed Gaber (Back-End)",
+                              "Abdalrahman Abotaleb(Mobile App Developer With Flutter )",
                         ),
                         UserRow(
-                          imageUrl:
-                              "assets/images/abdo5.jpeg",
-                          userName: "Abdalrahman Abotaleb(Mobile App Developer With Flutter )",
+                          imageUrl: "assets/images/Salem.jpeg",
+                          userName: "Ahmed Salem (Front-End Developer)",
                         ),
                         UserRow(
-                          imageUrl:
-                              "assets/images/basel.jpeg",
+                          imageUrl: "assets/images/basel.jpeg",
                           userName: "Basel Adnan (Machine Learning)",
                         ),
                         UserRow(
-                          imageUrl:
-                              "assets/images/yasmeen.jpeg",
+                          imageUrl: "assets/images/yasmeen.jpeg",
                           userName: "Yasmeen Mohamed(Back-End)",
                         ),
                         UserRow(
-                          imageUrl:
-                              "assets/images/Eslam.jpeg",
+                          imageUrl: "assets/images/Eslam.jpeg",
                           userName: "Eslam Mohamed Badawy (Ux ui designer)",
                         ),
                         UserRow(
-                          imageUrl:
-                              "assets/images/osama.jpeg",
+                          imageUrl: "assets/images/osama.jpeg",
                           userName: "Osama hisham adley ((Machine learning )",
                         ),
                         UserRow(
-                          imageUrl:
-                              "assets/images/zezo.jpeg",
+                          imageUrl: "assets/images/zezo.jpeg",
                           userName: "Zezo (Front-End Developer)",
-                        ),
-                         UserRow(
-                          imageUrl:
-                              "assets/images/salem.jpg",
-                          userName: "Ahmed Salem (Front-End Developer)",
                         ),
                       ],
                     ),
@@ -107,22 +99,18 @@ class UserRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-      child: Row(
+      child: Column(
         children: [
           CircleAvatar(
             backgroundImage: AssetImage(imageUrl),
             radius: 50,
             backgroundColor: Colors.blue,
           ),
-          SizedBox(width: 20),
-          Expanded(
-            child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Text(
-                userName,
-                style: TextStyle(fontWeight: FontWeight.w400, fontSize: 20),
-              ),
-            ),
+          SizedBox(height: 10),
+          Text(
+            userName,
+            textAlign: TextAlign.center,
+            style: TextStyle(fontWeight: FontWeight.w400, fontSize: 20),
           ),
         ],
       ),
